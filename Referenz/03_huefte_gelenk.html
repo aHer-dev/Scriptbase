@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hüftgelenk — Gelenk, Bewegung, Bandapparat</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q007o0:checked ~ #q007o0-fb { display:block; } #q007o1:checked ~ #q007o1-fb { display:block; } #q007o2:checked ~ #q007o2-fb { display:block; }
+#q008o0:checked ~ #q008o0-fb { display:block; } #q008o1:checked ~ #q008o1-fb { display:block; } #q008o2:checked ~ #q008o2-fb { display:block; }
+#q009o0:checked ~ #q009o0-fb { display:block; } #q009o1:checked ~ #q009o1-fb { display:block; } #q009o2:checked ~ #q009o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="02_huefte_knochen.html">← Hüftgelenk — Knöcherne Strukturen</a>
+  <span class="nav-progress">Kapitel 4 von 12</span>
+  <a class="nav-btn" href="04_huefte_muskeln.html">→ Hüftgelenk — Muskulatur</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 3</p>
+  <h1>Hüftgelenk &mdash; Gelenk, Bewegung, Bandapparat</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Gelenkflächen, Kapsel, Bewegungsumfänge und Verschraubung</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Aufbau und Funktion von Caput femoris, Acetabulum und Labrum acetabuli erklären</li>
+      <li>Die Bewegungsumfänge im Hüftgelenk benennen und einordnen</li>
+      <li>Verlauf und Funktion der drei Hüftbänder beschreiben</li>
+      <li>Das Prinzip der Verschraubung verstehen und klinisch anwenden</li>
+    </ul>
+  </div>
+
+  
+  <h2>3.1 Gelenkflächen</h2>
+
+  <h3>Caput femoris</h3>
+  <p>Der <strong>konvexe</strong> Femurkopf ist mit hyalinem Gelenkknorpel überzogen &mdash; bis auf
+  die kleine Fovea capitis.</p>
+
+  <h3>Acetabulum</h3>
+  <p>Die <strong>konkave</strong> Hüftpfanne entsteht durch das Zusammenwachsen von Os ilium, Os ischii
+  und Os pubis. Sie ist nicht durchgehend mit Knorpel überzogen, sondern in zwei Bereiche gegliedert:</p>
+  <ul>
+    <li><strong>Facies lunata</strong> &mdash; halbmondförmige, hyalin überknorpelte Gelenkfläche, die den Femurkopf trägt.</li>
+    <li><strong>Fossa acetabuli</strong> &mdash; zentrale, knorpelfreie Vertiefung, ausgefüllt mit einem
+        Fettkissen (Pulvinar acetabuli) und Bindegewebe.</li>
+  </ul>
+
+  <h3>Labrum acetabuli</h3>
+  <p>Das Labrum ist eine ringförmige Faserknorpellippe am Pfannenrand. Es vergrößert die Pfannentiefe
+  und sorgt dafür, dass der Femurkopf zu mehr als der Hälfte umfasst wird. Im Inneren des Gelenks herrscht
+  ein leichter <strong>intraartikulärer Unterdruck</strong>, der den Kopf zusätzlich in der Pfanne hält
+  &mdash; der sogenannte <em>Pömpel-Effekt</em>.</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Frontalschnitt durch das Hüftgelenk: Caput femoris in Acetabulum, Labrum, Facies lunata, Fossa acetabuli</div>
+  
+  <div class="atm-bild-such">hüftgelenk frontalschnitt anatomie, hip joint cross section, labrum acetabuli</div>
+</div>
+
+  <div class="atm-merke">Die ringförmige Umfassung des Femurkopfes durch Labrum und Knochen macht das Hüftgelenk zu einem <strong>Nussgelenk</strong> (Articulatio cotylica) &mdash; einer Sonderform des Kugelgelenks mit besonders tiefer Pfanne und entsprechend hoher Stabilität.</div>
+
+  <h2>3.2 Bewegungsmöglichkeiten</h2>
+  <p>Als Kugelgelenk lässt das Hüftgelenk Bewegungen um drei Achsen zu:</p>
+
+  <table class="atm-tabelle">
+    <thead><tr><th>Achse</th><th>Ebene</th><th>Bewegung</th></tr></thead>
+    <tbody>
+      <tr><td>Frontotransversal</td><td>Sagittalebene</td><td>Flexion (~120 Grad) / Extension (~15 Grad)</td></tr>
+      <tr><td>Sagittotransversal</td><td>Frontalebene</td><td>Abduktion (~45 Grad) / Adduktion (~30 Grad)</td></tr>
+      <tr><td>Frontosagittal (Längs)</td><td>Transversalebene</td><td>Innen- / Außenrotation (je ~30-40 Grad)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Bewegungsumfänge der Hüfte am Patienten / Modell zeigen</div>
+  <div class="atm-video-such">hüftgelenk bewegungsumfang, hip range of motion physiotherapie</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <h2>3.3 Bandapparat und Verschraubung</h2>
+  <p>Drei kräftige Kapselbänder verstärken die Hüftgelenkkapsel von außen. Sie verlaufen
+  in einer schraubenförmigen Anordnung und haben deshalb eine charakteristische gemeinsame Wirkung.</p>
+
+  <h3>Lig. iliofemorale</h3>
+  <p>Das <strong>stärkste Band des Körpers</strong> &mdash; auch <em>Bertini-Band</em> genannt.</p>
+  <div class="atm-muskel">
+    <dl>
+      <dt>Ursprung</dt><dd>SIAI (Spina iliaca anterior inferior)</dd>
+      <dt>Ansatz</dt><dd>Linea intertrochanterica (Femur)</dd>
+      <dt>Funktion</dt><dd>hemmt die Extension</dd>
+    </dl>
+  </div>
+
+  <h3>Lig. pubofemorale</h3>
+  <div class="atm-muskel">
+    <dl>
+      <dt>Ursprung</dt><dd>Ramus superior ossis pubis</dd>
+      <dt>Ansatz</dt><dd>Linea intertrochanterica</dd>
+      <dt>Funktion</dt><dd>hemmt Abduktion und Außenrotation</dd>
+    </dl>
+  </div>
+
+  <h3>Lig. ischiofemorale</h3>
+  <div class="atm-muskel">
+    <dl>
+      <dt>Ursprung</dt><dd>Os ischii (oberhalb des Acetabulumrandes)</dd>
+      <dt>Ansatz</dt><dd>Fossa trochanterica</dd>
+      <dt>Funktion</dt><dd>hemmt Extension und Innenrotation</dd>
+    </dl>
+  </div>
+
+  <h3>Lig. capitis femoris</h3>
+  <p>Das Lig. capitis femoris zieht von der Fossa acetabuli zur Fovea capitis und führt eine Arterie
+  zum Femurkopf. <strong>Mechanisch hat es kaum stabilisierende Funktion</strong> &mdash; seine Bedeutung
+  liegt in der vaskulären Versorgung des Caput femoris im Kindesalter.</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Bandapparat des Hüftgelenks von ventral und dorsal: Lig. iliofemorale, pubofemorale, ischiofemorale</div>
+  
+  <div class="atm-bild-such">hüftbänder anatomie, hip ligaments, lig iliofemorale bertini</div>
+</div>
+
+  <h3>Verschraubung des Hüftgelenks</h3>
+  <p>Die drei großen Bänder verlaufen alle <strong>schraubenförmig um den Femurhals</strong> herum.
+  In <strong>Extension</strong> sind die Bänder maximal angespannt und <em>verschrauben</em> den
+  Femurkopf in die Pfanne &mdash; die <em>Loose-pack-Stellung</em> ist also <strong>Flexion</strong>,
+  die <em>Close-pack-Stellung</em> ist die Streckung.</p>
+
+  <div class="atm-merke">Die Verschraubung ist klinisch und alltagspraktisch hochrelevant: Im aufrechten Stand stabilisiert die Bandstruktur das Becken passiv &mdash; die Hüftmuskulatur muss nur wenig Haltearbeit leisten. Diese Energiespar-Konstruktion erlaubt langes Stehen ohne nennenswerte Ermüdung.</div>
+
+  <div class="atm-info"><h4>Loose-pack vs. Close-pack</h4><p><strong>Close-pack-Stellung</strong> = Gelenk maximal stabil, Bänder und Kapsel maximal gespannt, Knorpelflächen passen optimal aufeinander. Hier ist eine Distraktion (Auseinanderziehen) am schwersten.<br><strong>Loose-pack-Stellung</strong> = Gelenk in Ruhe-/Lockerheit. Wichtig für Mobilisationstechniken in der Therapie, weil sich das Gelenk hier am leichtesten passiv bewegen lässt.</p></div>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Verschraubung am Hüftgelenk &mdash; Schema- oder Live-Demonstration</div>
+  <div class="atm-video-such">verschraubung hüftgelenk, hip joint screw mechanism</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <div class="atm-quiz"><h3>zu Gelenkflächen, Bewegung und Bänder</h3><div class="atm-frage"><p>Welcher Bewegungsumfang ist im Hüftgelenk am größten?</p><div class="atm-mc">
+<input type="radio" name="q007" id="q007o0">
+<label for="q007o0">Extension</label>
+<div class="atm-feedback atm-falsch" id="q007o0-fb">Falsch. Die Extension ist mit ca. 15 Grad sogar die kleinste Bewegungsmöglichkeit.</div>
+<input type="radio" name="q007" id="q007o1">
+<label for="q007o1">Flexion</label>
+<div class="atm-feedback atm-richtig" id="q007o1-fb">Richtig! Die Hüftflexion erreicht etwa 120 Grad bei gebeugtem Knie &mdash; die mit Abstand größte Bewegung im Hüftgelenk.</div>
+<input type="radio" name="q007" id="q007o2">
+<label for="q007o2">Außenrotation</label>
+<div class="atm-feedback atm-falsch" id="q007o2-fb">Falsch. Die Außenrotation liegt bei ca. 30-40 Grad.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Was bedeutet, dass das Hüftgelenk ein <em>Nussgelenk</em> ist?</p><div class="atm-mc">
+<input type="radio" name="q008" id="q008o0">
+<label for="q008o0">Es hat eine knorpelfreie Fossa acetabuli</label>
+<div class="atm-feedback atm-falsch" id="q008o0-fb">Das ist zwar zutreffend, definiert aber nicht das Nussgelenk.</div>
+<input type="radio" name="q008" id="q008o1">
+<label for="q008o1">Der Femurkopf wird zu mehr als der Hälfte von der Pfanne umfasst</label>
+<div class="atm-feedback atm-richtig" id="q008o1-fb">Richtig! Ein Nussgelenk (Articulatio cotylica) ist eine Sonderform des Kugelgelenks mit besonders tiefer Pfanne &mdash; daher stabiler als das Schultergelenk.</div>
+<input type="radio" name="q008" id="q008o2">
+<label for="q008o2">Es kann nur eingeschränkt rotieren</label>
+<div class="atm-feedback atm-falsch" id="q008o2-fb">Falsch. Die Rotation ist im Hüftgelenk durchaus möglich (~30-40 Grad in beide Richtungen).</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>In welcher Stellung ist das Hüftgelenk am stabilsten verschraubt?</p><div class="atm-mc">
+<input type="radio" name="q009" id="q009o0">
+<label for="q009o0">Flexion</label>
+<div class="atm-feedback atm-falsch" id="q009o0-fb">Falsch. In Flexion sind die Bänder entspannt &mdash; das ist die Loose-pack-Stellung.</div>
+<input type="radio" name="q009" id="q009o1">
+<label for="q009o1">Extension</label>
+<div class="atm-feedback atm-richtig" id="q009o1-fb">Richtig! In Extension sind die Bänder maximal gespannt und verschrauben den Femurkopf in die Pfanne &mdash; das erlaubt langes Stehen mit minimaler Muskelarbeit.</div>
+<input type="radio" name="q009" id="q009o2">
+<label for="q009o2">90 Grad Flexion mit Innenrotation</label>
+<div class="atm-feedback atm-falsch" id="q009o2-fb">Falsch. Diese Stellung ist sogar besonders luxationsgefährdet (z.B. nach Hüft-TEP).</div>
+</div>
+
+</div>
+<div class="atm-frage">
+      <p><strong>Klinische Anwendung:</strong> Ein Patient mit Hüft-Endoprothese soll in den ersten Wochen bestimmte Bewegungen vermeiden. Welche Stellung ist besonders luxationsgefährdet?</p>
+      <details class="atm-lösung"><summary></summary><p>Die kritische Kombination ist <strong>Hüftflexion &gt; 90 Grad + Adduktion + Innenrotation</strong>. In dieser Stellung sind die Bänder entspannt (Loose-pack) und der Femurkopf kann nach dorsal aus der Pfanne luxieren &mdash; deshalb gilt postoperativ z.B. die Regel: nicht überkreuzt sitzen, nicht tief in den Sessel sinken, nicht beim Sitzen die Beine zur Seite überschlagen.</p></details>
+    </div></div>
+
+  <div class="atm-reflexion">Stell dich aufrecht hin. Versuche bewusst zu spüren, wie wenig Muskelarbeit dafür nötig ist. Beuge die Hüfte leicht an &mdash; spürst du, wie die Muskulatur jetzt mehr arbeiten muss? Das ist die Verschraubung in Aktion.</div>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Hüftgelenk &mdash; Muskulatur</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="02_huefte_knochen.html">← Hüftgelenk — Knöcherne Strukturen</a>
+  <span class="nav-progress">Kapitel 4 von 12</span>
+  <a class="nav-btn" href="04_huefte_muskeln.html">→ Hüftgelenk — Muskulatur</a>
+</div>
+</body>
+</html>

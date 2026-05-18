@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScriptBase</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'><rect x='1' y='1' width='11' height='11' rx='3' fill='%23f5a623' opacity='0.9'/><rect x='14' y='1' width='11' height='11' rx='3' fill='%23f5a623' opacity='0.4'/><rect x='1' y='14' width='11' height='11' rx='3' fill='%23f5a623' opacity='0.4'/><rect x='14' y='14' width='11' height='11' rx='3' fill='%23f5a623' opacity='0.15'/></svg>">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+  <!--
+    ScriptBase – SCORM Autor-Tool
+    ================================
+    Einstiegspunkt der App.
+    Enthält nur das HTML-Grundgerüst (3 Spalten: Sidebar, Editor, Panel).
+    Alle Logik läuft über app.js und die Module.
+  -->
+
+  <div id="app">
+
+    <!-- Top-Bar: Logo, Kursname, Aktionen (Import, Export) -->
+    <header id="topbar">
+      <!-- wird von app.js befüllt -->
+    </header>
+
+    <main id="main">
+
+      <!-- Linke Spalte: Kapitel-Liste -->
+      <aside id="sidebar">
+        <!-- wird von sidebar/sidebar.js befüllt -->
+      </aside>
+
+      <!-- Mitte: Block-Editor -->
+      <section id="editor">
+        <!-- wird von editor/editor.js befüllt -->
+      </section>
+
+      <!-- Rechte Spalte: Block-Palette + Design-Optionen -->
+      <aside id="panel">
+        <!-- wird von editor/editor.js und design/themes.js befüllt -->
+      </aside>
+
+    </main>
+
+    <!-- Status-Bar unten: Speicher-Status, Anzahl Kapitel, etc. -->
+    <footer id="statusbar">
+      <!-- wird von app.js befüllt -->
+    </footer>
+
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

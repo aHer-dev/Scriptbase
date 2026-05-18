@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hüftgelenk — Muskulatur</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q010o0:checked ~ #q010o0-fb { display:block; } #q010o1:checked ~ #q010o1-fb { display:block; } #q010o2:checked ~ #q010o2-fb { display:block; }
+#q011o0:checked ~ #q011o0-fb { display:block; } #q011o1:checked ~ #q011o1-fb { display:block; } #q011o2:checked ~ #q011o2-fb { display:block; }
+#q012o0:checked ~ #q012o0-fb { display:block; } #q012o1:checked ~ #q012o1-fb { display:block; } #q012o2:checked ~ #q012o2-fb { display:block; }
+#q013o0:checked ~ #q013o0-fb { display:block; } #q013o1:checked ~ #q013o1-fb { display:block; } #q013o2:checked ~ #q013o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="03_huefte_gelenk.html">← Hüftgelenk — Gelenk, Bewegung, Bandapparat</a>
+  <span class="nav-progress">Kapitel 5 von 12</span>
+  <a class="nav-btn" href="05_knie_aufbau.html">→ Kniegelenk — Aufbau und knöcherne Strukturen</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 4</p>
+  <h1>Hüftgelenk &mdash; Muskulatur</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Sieben Funktionsgruppen mit Ursprung, Ansatz, Funktion und Innervation</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Die wichtigsten Hüftmuskeln mit Ursprung, Ansatz, Funktion und Innervation kennen</li>
+      <li>Den M. iliopsoas als stärksten Hüftbeuger einordnen und seine klinische Bedeutung verstehen</li>
+      <li>Funktion und Ausfall der pelvistabilisierenden Glutäalmuskulatur erklären</li>
+      <li>Die Funktionsumkehr des M. piriformis und das Piriformis-Syndrom verstehen</li>
+    </ul>
+  </div>
+
+  
+  <div class="atm-info"><h4>Hinweis zur Lernstrategie</h4><p>Bei jedem Muskel solltest du am Ende eine kleine Karteikarte im Kopf haben: <strong>Ursprung, Ansatz, Funktion, Innervation</strong> &mdash; das ist das Klausur-Format. Erstelle dir gerne nebenher echte Karteikarten, das hilft enorm.</p></div>
+
+  <h2>4.1 M. iliopsoas &mdash; der wichtigste Hüftbeuger</h2>
+  <p>Entsteht aus der Verschmelzung zweier Muskelbäuche (M. psoas major + M. iliacus).</p>
+
+  <div class="atm-muskel">
+  <h4>M. iliopsoas</h4>
+  <dl>
+    <dt>Ursprung</dt><dd>M. psoas major: seitliche Wirbelkörper Th12-L4<br>M. iliacus: Fossa iliaca des Os ilium</dd>
+    <dt>Ansatz</dt><dd>Trochanter minor</dd>
+    <dt>Funktion</dt><dd>Hüftgelenk: Flexion (stärkster Hüftbeuger), zusätzlich Außenrotation</dd>
+    <dt>Innervation</dt><dd>N. femoralis (L2-L4); Plexus lumbalis (für M. psoas auch direkte Äste)</dd>
+  </dl>
+</div>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Verlauf des M. iliopsoas: psoas major an der Wirbelsäule, iliacus aus der Fossa iliaca, gemeinsamer Ansatz am Trochanter minor</div>
+  
+  <div class="atm-bild-such">m iliopsoas anatomie, iliopsoas muscle, hüftbeuger anatomie</div>
+</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Hüftbeugekontraktur durch M. iliopsoas</h4><p>Eine Verkürzung des M. iliopsoas führt zur sogenannten <strong>Hüftbeugekontraktur</strong>: Im Stand zieht das Becken nach ventral, die Lendenlordose nimmt zu (<em>Hyperlordose</em>), der Patient steht nicht mehr aufrecht. Therapeutisch wichtig in der Haltungsschulung und Dehntherapie. Klassisches Bild bei Menschen, die viel sitzen.</p></div>
+
+  <h2>4.2 M. gluteus maximus</h2>
+  <p>Der größte und kräftigste Streckmuskel der Hüfte; verleiht der Gesäßregion ihre Form.</p>
+
+  <div class="atm-muskel">
+  <h4>M. gluteus maximus</h4>
+  <dl>
+    <dt>Ursprung</dt><dd>dorsales Os sacrum<br>Lig. sacrotuberale<br>dorsaler Bereich der Crista iliaca<br>Fascia thoracolumbalis</dd>
+    <dt>Ansatz</dt><dd>Tractus iliotibialis (oberflächliche Fasern)<br>Tuberositas glutea (tiefe Fasern)</dd>
+    <dt>Funktion</dt><dd>Hüftgelenk: kräftige Extension, zusätzlich Außenrotation<br>Stabilisierung des Beckens beim Aufstehen, Treppensteigen, Bergaufgehen</dd>
+    <dt>Innervation</dt><dd>N. gluteus inferior (L5-S2)</dd>
+  </dl>
+</div>
+
+  <div class="atm-info"><h4>Wann ist der M. gluteus maximus aktiv?</h4><p>Beim entspannten Gehen ist er kaum aktiv &mdash; man kann das beim Außenstehen sogar tasten. Erst bei <em>kraftvoller</em> Hüftstreckung schaltet er sich ein: Aufstehen aus dem Sitz, Treppensteigen, Bergaufgehen, schnelles Laufen. Klinisch deshalb das Aufstehen vom Stuhl als Prüfbewegung.</p></div>
+
+  <h2>4.3 M. gluteus medius und M. gluteus minimus</h2>
+  <p>Beide Muskeln liegen tiefer als der M. gluteus maximus und arbeiten funktionell gemeinsam.
+  Ihre <strong>Hauptaufgabe ist die Stabilisierung des Beckens in der Frontalebene während
+  des Einbeinstands</strong>.</p>
+
+  <div class="atm-muskel">
+  <h4>M. gluteus medius / minimus</h4>
+  <dl>
+    <dt>Ursprung</dt><dd>Facies glutea des Os ilium (Bereich zwischen Linea glutea anterior und posterior)</dd>
+    <dt>Ansatz</dt><dd>Trochanter major</dd>
+    <dt>Funktion</dt><dd>Hüftgelenk: Abduktion<br>Stabilisierung des Beckens in der Frontalebene beim Einbeinstand<br>vordere Anteile: Flexion + Innenrotation<br>hintere Anteile: Extension + Außenrotation</dd>
+    <dt>Innervation</dt><dd>N. gluteus superior (L4-S1)</dd>
+  </dl>
+</div>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Glutealmuskeln in Schichten: gluteus maximus oberflächlich, medius darunter, minimus tief</div>
+  
+  <div class="atm-bild-such">gluteus medius minimus anatomie, glutealmuskulatur schichten</div>
+</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Trendelenburg-Zeichen</h4><p><strong>Funktion und Ausfall:</strong> Beim normalen Einbeinstand stabilisiert der M. gluteus medius/minimus
+          der <em>Standbeinseite</em> das Becken in der Horizontalen, indem er die <em>Spielbeinseite</em> anhebt.</p>
+          <p>Bei einer Schwäche dieser Muskeln (z.B. nach Hüft-OP, bei Schädigung des N. gluteus superior) sinkt das
+          Becken zur Spielbeinseite ab &mdash; das ist das <strong>positive Trendelenburg-Zeichen</strong>.</p>
+          <p><strong>Therapeutische Konsequenz:</strong> Kräftigung der Abduktoren ist nach Hüft-Endoprothesen ein zentrales
+          Reha-Ziel. Im Watschelgang (<em>Duchenne-Hinken</em>) verlagert der Patient den Oberkörper als Kompensation auf die
+          Standbeinseite.</p></div>
+
+  <h2>4.4 M. tensor fasciae latae</h2>
+  <div class="atm-muskel">
+  <h4>M. tensor fasciae latae</h4>
+  <dl>
+    <dt>Ursprung</dt><dd>SIAS (Spina iliaca anterior superior)</dd>
+    <dt>Ansatz</dt><dd>Tractus iliotibialis</dd>
+    <dt>Funktion</dt><dd>Hüftgelenk: Abduktion + Flexion + Innenrotation; spannt die Fascia lata</dd>
+    <dt>Innervation</dt><dd>N. gluteus superior (L4-S1)</dd>
+  </dl>
+</div>
+
+  <h2>4.5 M. piriformis</h2>
+  <p>Der wichtigste Vertreter der pelvitrochantären Muskelgruppe &mdash; mit einer funktionellen Besonderheit.</p>
+
+  <div class="atm-muskel">
+  <h4>M. piriformis</h4>
+  <dl>
+    <dt>Ursprung</dt><dd>Os sacrum (Innenfläche, ventral)</dd>
+    <dt>Ansatz</dt><dd>Trochanter major (Spitze)</dd>
+    <dt>Funktion</dt><dd>bei aufrechtem Bein (0 Grad Hüftflexion): Außenrotation, Abduktion<br>bei &gt; 60 Grad Hüftflexion: <strong>Funktionsumkehr &rarr; Innenrotation</strong></dd>
+    <dt>Innervation</dt><dd>Plexus sacralis (direkte Äste)</dd>
+  </dl>
+</div>
+
+  <div class="atm-merke">Die Funktionsumkehr des M. piriformis ist klausurtypisch: Bei aufrechtem Bein Außenrotator, bei stark gebeugter Hüfte Innenrotator. Grund: Mit zunehmender Hüftflexion wandert die Sehne des Piriformis über die Drehachse hinweg.</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Piriformis-Syndrom</h4><p>Der N. ischiadicus zieht in der Regel <em>unterhalb</em> des M. piriformis durch das <strong>Foramen infrapiriforme</strong>. Bei Verspannung oder Hypertrophie des Muskels (z.B. bei Läufern, Radfahrern, langem Sitzen) kann der Nerv komprimiert werden &mdash; die Beschwerden ähneln einer Ischialgie: Schmerzausstrahlung dorsal in den Oberschenkel, manchmal bis ins Bein. <strong>Differenzialdiagnostisch wichtig</strong> gegenüber lumbalen Bandscheibenvorfällen.</p></div>
+
+  <h2>4.6 Pelvitrochantäre Muskulatur</h2>
+  <p>Eine Gruppe kleiner, tiefer Außenrotatoren, die die Hüftkapsel von dorsal verstärken:</p>
+  <ul>
+    <li><strong>M. obturatorius internus</strong> und <strong>externus</strong></li>
+    <li>Mm. gemelli superior et inferior</li>
+    <li>M. quadratus femoris</li>
+  </ul>
+  <p>Alle ziehen vom Beckenring zum Trochanter major bzw. zur Fossa trochanterica und wirken als
+  <strong>Außenrotatoren der Hüfte</strong>. Funktionelles Aequivalent zur Rotatorenmanschette der Schulter.</p>
+
+  <h2>4.7 Adduktorengruppe</h2>
+  <p>Die Adduktoren liegen an der Innenseite des Oberschenkels und werden meist in eine oberflächliche
+  und eine tiefe Schicht eingeteilt:</p>
+  <ul>
+    <li><strong>M. pectineus</strong> &mdash; ziemlich oberflächlich, kraniale Lage</li>
+    <li><strong>M. adductor longus</strong></li>
+    <li><strong>M. adductor brevis</strong></li>
+    <li><strong>M. adductor magnus</strong> &mdash; mit <em>fleischigem</em> Anteil (Os ischii / Tuber ischiadicum)
+        und <em>sehnigem</em> Anteil (zur medialen Femurkondyle)</li>
+    <li><strong>M. gracilis</strong> &mdash; wird im Knie-Kapitel ausführlich behandelt (zweigelenkig)</li>
+  </ul>
+  <p>Hauptfunktion aller Adduktoren ist die <strong>Adduktion</strong> im Hüftgelenk; je nach Anteil
+  kommen Flexions- oder Extensionskomponenten hinzu. Innervation überwiegend durch den
+  <em>N. obturatorius (L2-L4)</em>.</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Schichtdarstellung der Adduktorengruppe: pectineus, adductor longus/brevis/magnus, gracilis</div>
+  
+  <div class="atm-bild-such">adduktorengruppe anatomie, hip adductors anatomy, m adductor magnus</div>
+</div>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Hüftmuskulatur live am Modell oder Patienten zeigen</div>
+  <div class="atm-video-such">hüftmuskulatur überblick, hip muscles overview anatomy german</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <div class="atm-quiz"><h3>zur Hüftmuskulatur</h3><div class="atm-frage"><p>Welcher Muskel ist der stärkste Hüftbeuger?</p><div class="atm-mc">
+<input type="radio" name="q010" id="q010o0">
+<label for="q010o0">M. gluteus maximus</label>
+<div class="atm-feedback atm-falsch" id="q010o0-fb">Falsch. Der Gluteus maximus ist der stärkste Hüftstrecker, nicht Beuger.</div>
+<input type="radio" name="q010" id="q010o1">
+<label for="q010o1">M. iliopsoas</label>
+<div class="atm-feedback atm-richtig" id="q010o1-fb">Richtig! Der M. iliopsoas ist der stärkste Hüftbeuger &mdash; und der einzige, der direkt am Trochanter minor ansetzt.</div>
+<input type="radio" name="q010" id="q010o2">
+<label for="q010o2">M. tensor fasciae latae</label>
+<div class="atm-feedback atm-falsch" id="q010o2-fb">Der TFL hat zwar eine Beugekomponente, ist aber deutlich schwächer als der Iliopsoas.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Muskeln sind hauptsächlich für das positive Trendelenburg-Zeichen verantwortlich?</p><div class="atm-mc">
+<input type="radio" name="q011" id="q011o0">
+<label for="q011o0">M. gluteus maximus</label>
+<div class="atm-feedback atm-falsch" id="q011o0-fb">Falsch. Der Gluteus maximus stabilisiert in der Sagittalebene, nicht in der Frontalebene.</div>
+<input type="radio" name="q011" id="q011o1">
+<label for="q011o1">M. iliopsoas</label>
+<div class="atm-feedback atm-falsch" id="q011o1-fb">Falsch. Der Iliopsoas ist Hüftbeuger und stabilisiert nicht in der Frontalebene.</div>
+<input type="radio" name="q011" id="q011o2">
+<label for="q011o2">M. gluteus medius und minimus</label>
+<div class="atm-feedback atm-richtig" id="q011o2-fb">Richtig! Diese beiden Muskeln stabilisieren das Becken in der Frontalebene beim Einbeinstand. Bei Schwäche kippt das Becken zur Spielbeinseite ab.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Was ist die Funktionsumkehr des M. piriformis?</p><div class="atm-mc">
+<input type="radio" name="q012" id="q012o0">
+<label for="q012o0">Bei 0 Grad Hüftflexion ist er Innenrotator, bei &gt;60 Grad wird er Außenrotator</label>
+<div class="atm-feedback atm-falsch" id="q012o0-fb">Falsch &mdash; genau umgekehrt!</div>
+<input type="radio" name="q012" id="q012o1">
+<label for="q012o1">Bei 0 Grad Hüftflexion ist er Außenrotator, bei &gt;60 Grad wird er Innenrotator</label>
+<div class="atm-feedback atm-richtig" id="q012o1-fb">Richtig! Mit zunehmender Hüftflexion wandert die Sehne über die Drehachse, sodass sich die Wirkungsrichtung umkehrt.</div>
+<input type="radio" name="q012" id="q012o2">
+<label for="q012o2">Er wechselt zwischen Abduktion und Adduktion</label>
+<div class="atm-feedback atm-falsch" id="q012o2-fb">Falsch. Die Funktionsumkehr betrifft die Rotation.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welcher Nerv innerviert die Adduktorengruppe überwiegend?</p><div class="atm-mc">
+<input type="radio" name="q013" id="q013o0">
+<label for="q013o0">N. femoralis</label>
+<div class="atm-feedback atm-falsch" id="q013o0-fb">Falsch. Der N. femoralis innerviert die Hüftbeuger (Iliopsoas) und den Quadrizeps.</div>
+<input type="radio" name="q013" id="q013o1">
+<label for="q013o1">N. ischiadicus</label>
+<div class="atm-feedback atm-falsch" id="q013o1-fb">Falsch. Der N. ischiadicus innerviert die Hamstrings und Teile der Adduktoren nur ergänzend.</div>
+<input type="radio" name="q013" id="q013o2">
+<label for="q013o2">N. obturatorius (L2-L4)</label>
+<div class="atm-feedback atm-richtig" id="q013o2-fb">Richtig! Der N. obturatorius ist der Hauptnerv der Adduktorengruppe.</div>
+</div>
+
+</div>
+<div class="atm-frage">
+      <p><strong>Klinisches Szenario:</strong> Eine Patientin nach Hüft-TEP zeigt im Gangbild ein deutliches Watschelgehen (Duchenne-Hinken). Welche Muskelgruppe ist vermutlich geschwächt und welches Reha-Ziel ergibt sich?</p>
+      <details class="atm-lösung"><summary></summary><p>Geschwächt ist die <strong>Glutäalmuskulatur (gluteus medius/minimus)</strong>. Die Patientin verlagert ihren Oberkörper auf die Standbeinseite, um das fehlende Aufrichten des Beckens zu kompensieren (positives Trendelenburg-Zeichen mit Duchenne-Kompensation). <strong>Reha-Ziel:</strong> gezielte Kräftigung der Hüftabduktoren, z.B. über Seitlage-Abduktion, Brückenübung mit Theraband, Einbeinstand-Training mit Beckenkontrolle.</p></details>
+    </div></div>
+
+  <div class="atm-reflexion">Lege im Stehen die Hand auf deinen rechten Trochanter major und mache einen Einbeinstand auf rechts. Spürst du, wie der M. gluteus medius unter deiner Hand kontrahiert? Das ist genau die pelvistabilisierende Funktion, die beim Trendelenburg-Test geprüft wird.</div>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Kniegelenk &mdash; Aufbau und knöcherne Strukturen</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="03_huefte_gelenk.html">← Hüftgelenk — Gelenk, Bewegung, Bandapparat</a>
+  <span class="nav-progress">Kapitel 5 von 12</span>
+  <a class="nav-btn" href="05_knie_aufbau.html">→ Kniegelenk — Aufbau und knöcherne Strukturen</a>
+</div>
+</body>
+</html>

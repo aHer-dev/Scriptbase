@@ -1,0 +1,15 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.suo
+*.user
+
+# Logs
+*.log
+
+# Temporäre Dateien
+*.tmp
+*.bak

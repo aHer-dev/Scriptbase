@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="anatomie_huefte_knie" version="1.0"
+  xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2"
+  xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2
+                       imscp_rootv1p1p2.xsd
+                       http://www.adlnet.org/xsd/adlcp_rootv1p2
+                       adlcp_rootv1p2.xsd">
+
+  <metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+  </metadata>
+
+  <organizations default="org_anatomie">
+    <organization identifier="org_anatomie">
+      <title>Anatomie – Hüfte und Knie</title>
+      <item identifier="item_00" identifierref="res_00" isvisible="true">
+        <title>Willkommen im Modul</title>
+      </item>
+      <item identifier="item_01" identifierref="res_01" isvisible="true">
+        <title>Anatomische Grundlagen</title>
+      </item>
+      <item identifier="item_02" identifierref="res_02" isvisible="true">
+        <title>Hüftgelenk — Knöcherne Strukturen</title>
+      </item>
+      <item identifier="item_03" identifierref="res_03" isvisible="true">
+        <title>Hüftgelenk — Gelenk, Bewegung, Bandapparat</title>
+      </item>
+      <item identifier="item_04" identifierref="res_04" isvisible="true">
+        <title>Hüftgelenk — Muskulatur</title>
+      </item>
+      <item identifier="item_05" identifierref="res_05" isvisible="true">
+        <title>Kniegelenk — Aufbau und knöcherne Strukturen</title>
+      </item>
+      <item identifier="item_06" identifierref="res_06" isvisible="true">
+        <title>Kniegelenk — Menisken</title>
+      </item>
+      <item identifier="item_07" identifierref="res_07" isvisible="true">
+        <title>Kniegelenk — Bandapparat</title>
+      </item>
+      <item identifier="item_08" identifierref="res_08" isvisible="true">
+        <title>Kniegelenk — Beinachsen und klinische Tests</title>
+      </item>
+      <item identifier="item_09" identifierref="res_09" isvisible="true">
+        <title>Kniegelenk — Muskulatur</title>
+      </item>
+      <item identifier="item_10" identifierref="res_10" isvisible="true">
+        <title>Klinische Synthese</title>
+      </item>
+      <item identifier="item_11" identifierref="res_11" isvisible="true">
+        <title>Klausurvorbereitung — Übersicht und Abschlusstest</title>
+      </item>
+    </organization>
+  </organizations>
+
+  <resources>
+    <resource identifier="res_00" type="webcontent" adlcp:scormtype="sco" href="00_willkommen.html">
+      <file href="00_willkommen.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_01" type="webcontent" adlcp:scormtype="sco" href="01_grundlagen.html">
+      <file href="01_grundlagen.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_02" type="webcontent" adlcp:scormtype="sco" href="02_huefte_knochen.html">
+      <file href="02_huefte_knochen.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_03" type="webcontent" adlcp:scormtype="sco" href="03_huefte_gelenk.html">
+      <file href="03_huefte_gelenk.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_04" type="webcontent" adlcp:scormtype="sco" href="04_huefte_muskeln.html">
+      <file href="04_huefte_muskeln.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_05" type="webcontent" adlcp:scormtype="sco" href="05_knie_aufbau.html">
+      <file href="05_knie_aufbau.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_06" type="webcontent" adlcp:scormtype="sco" href="06_knie_menisken.html">
+      <file href="06_knie_menisken.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_07" type="webcontent" adlcp:scormtype="sco" href="07_knie_baender.html">
+      <file href="07_knie_baender.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_08" type="webcontent" adlcp:scormtype="sco" href="08_knie_achsen.html">
+      <file href="08_knie_achsen.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_09" type="webcontent" adlcp:scormtype="sco" href="09_knie_muskeln.html">
+      <file href="09_knie_muskeln.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_10" type="webcontent" adlcp:scormtype="sco" href="10_klinik.html">
+      <file href="10_klinik.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+    <resource identifier="res_11" type="webcontent" adlcp:scormtype="sco" href="11_klausurvorbereitung.html">
+      <file href="11_klausurvorbereitung.html"/>
+      <file href="scorm_api.js"/>
+    </resource>
+  </resources>
+
+</manifest>

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -v \"^c:/Users/49177/OneDrive/Desktop/SCORM_Editor/courseforge_grundgeruest/courseforge/[^/]*$\")",
+      "Bash(python -m http.server 3000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)"
+    ]
+  }
+}

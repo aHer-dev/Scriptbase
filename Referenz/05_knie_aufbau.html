@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kniegelenk — Aufbau und knöcherne Strukturen</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q014o0:checked ~ #q014o0-fb { display:block; } #q014o1:checked ~ #q014o1-fb { display:block; } #q014o2:checked ~ #q014o2-fb { display:block; }
+#q015o0:checked ~ #q015o0-fb { display:block; } #q015o1:checked ~ #q015o1-fb { display:block; } #q015o2:checked ~ #q015o2-fb { display:block; }
+#q016o0:checked ~ #q016o0-fb { display:block; } #q016o1:checked ~ #q016o1-fb { display:block; } #q016o2:checked ~ #q016o2-fb { display:block; }
+#q017o0:checked ~ #q017o0-fb { display:block; } #q017o1:checked ~ #q017o1-fb { display:block; } #q017o2:checked ~ #q017o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="04_huefte_muskeln.html">← Hüftgelenk — Muskulatur</a>
+  <span class="nav-progress">Kapitel 6 von 12</span>
+  <a class="nav-btn" href="06_knie_menisken.html">→ Kniegelenk — Menisken</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 5</p>
+  <h1>Kniegelenk &mdash; Aufbau und knöcherne Strukturen</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Zusammengesetztes Gelenk mit zwei Teilgelenken, Knochen und Recessus suprapatellaris</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Das Kniegelenk als zusammengesetztes Gelenk mit zwei Teilgelenken und unterschiedlichen Gelenktypen erkennen</li>
+      <li>Die knöchernen Strukturen an Femur, Tibia und Patella benennen</li>
+      <li>Aufbau und klinische Bedeutung des Recessus suprapatellaris erklären</li>
+      <li>Die Patella als Sesambein und Hypomochlion einordnen</li>
+    </ul>
+  </div>
+
+  
+  <h2>5.1 Allgemeine Charakterisierung</h2>
+  <p>Das Kniegelenk ist ein <strong>zusammengesetztes Gelenk</strong> (Articulatio composita).
+  Es besteht aus zwei Teilgelenken, die in einer gemeinsamen Gelenkkapsel liegen:</p>
+
+  <h3>Articulatio femorotibialis</h3>
+  <p>Das Hauptgelenk zwischen den Femurkondylen und dem Tibiaplateau. Es ist ein
+  <strong>Drehscharniergelenk</strong> mit zwei Freiheitsgraden:</p>
+  <ul>
+    <li><strong>Flexion / Extension</strong> um die frontotransversale Achse</li>
+    <li><strong>Innen- / Außenrotation</strong> um die Längsachse &mdash; aber nur bei
+        <strong>etwa 90 Grad Kniebeugung</strong>. In Streckung wird die Rotation durch die
+        Kreuz- und Kollateralbänder verriegelt.</li>
+  </ul>
+
+  <h3>Articulatio femoropatellaris</h3>
+  <p>Das Gelenk zwischen Patella und der Facies patellaris des Femurs. Die Gelenkpartner gleiten
+  flach aufeinander &mdash; ein <strong>planes Gelenk</strong> mit lediglich kleinen Gleitbewegungen.</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Frontal- und Sagittalansicht des Kniegelenks: Femur, Tibia, Patella, Gelenkkapsel</div>
+  
+  <div class="atm-bild-such">kniegelenk anatomie überblick, knee joint anatomy, articulatio genus</div>
+</div>
+
+  <h2>5.2 Femur distal</h2>
+  <ul>
+    <li><strong>Condylus medialis</strong> und <strong>Condylus lateralis</strong> &mdash; konvexe Gelenkrollen.</li>
+    <li><strong>Fossa intercondylaris</strong> &mdash; Grube zwischen den Kondylen, in der die Kreuzbänder ihren Ursprung haben.</li>
+    <li><strong>Facies patellaris</strong> &mdash; ventrale Gleitfläche für die Patella.</li>
+    <li><strong>Epicondylus medialis</strong> und <strong>Epicondylus lateralis</strong> &mdash;
+        Vorsprünge oberhalb der Kondylen, an denen u.a. die Kollateralbänder ansetzen.</li>
+  </ul>
+
+  <h2>5.3 Tibia proximal</h2>
+  <ul>
+    <li><strong>Tibiaplateau</strong> (Facies articularis superior) &mdash; konkav; mediale und laterale Gelenkfläche.</li>
+    <li><strong>Eminentia intercondylaris</strong> &mdash; knöcherner Höcker in der Mitte zwischen den beiden Gelenkflächen.</li>
+    <li><strong>Area intercondylaris anterior</strong> und <strong>posterior</strong> &mdash; Anheftungsstellen
+        der Kreuzbänder und Menisken.</li>
+    <li><strong>Tuberositas tibiae</strong> &mdash; knöcherner Höcker an der ventralen Tibia, Ansatz des Lig. patellae.</li>
+  </ul>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Femur distal und Tibia proximal mit beschrifteten Gelenkflächen, Kondylen, Eminentia intercondylaris</div>
+  
+  <div class="atm-bild-such">femur distal tibia proximal anatomie, knee bones labeled, condylus tibiaplateau</div>
+</div>
+
+  <h2>5.4 Patella</h2>
+  <p>Die Patella ist das <strong>größte Sesambein</strong> des Körpers. Sie ist in die
+  Quadrizepssehne eingebettet und liegt der Facies patellaris des Femurs auf. Funktionell wirkt sie
+  als <strong>Hypomochlion</strong> &mdash; ein Umlenkpunkt, der den Wirkabstand des Quadrizeps
+  zur Drehachse vergrößert und damit dessen Hebelwirkung erhöht.</p>
+
+  <div class="atm-info"><h4>Was ist ein Sesambein?</h4><p>Ein Sesambein ist ein in eine Sehne eingelagerter kleiner Knochen. Er schützt die Sehne vor Reibung und verbessert die Hebelverhältnisse des Muskels. Die Patella ist mit Abstand das größte &mdash; aber es gibt auch kleine Sesambeine an den Mittelhandknochen oder an der Achillessehne.</p></div>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Patella und Quadrizeps-Hebel: Schema und Live-Demonstration</div>
+  <div class="atm-video-such">patella sesambein hypomochlion, patella biomechanik</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <h2>5.5 Gelenkkapsel und Recessus suprapatellaris</h2>
+  <p>Die Gelenkkapsel umschließt beide Teilgelenke. Nach kranial bildet sie eine deutliche Aussackung
+  &mdash; den <strong>Recessus suprapatellaris</strong> &mdash; der bis ca. zwei Querfinger
+  oberhalb der Patella reicht. Bei einem Gelenkerguss füllt sich dieser Recessus zuerst und ist
+  klinisch tastbar (sogenanntes <em>Tanzen der Patella</em>).</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Sagittalschnitt durch das Kniegelenk: Gelenkkapsel mit Recessus suprapatellaris, Patella, Femur, Tibia</div>
+  
+  <div class="atm-bild-such">recessus suprapatellaris anatomie, knee joint capsule, kniegelenkkapsel</div>
+</div>
+
+  <div class="atm-merke">Die obere Begrenzung der Gelenkkapsel liegt deutlich oberhalb der Patella. Eine intraartikuläre Punktion wird daher meistens am Recessus suprapatellaris durchgeführt.</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Tanzende Patella</h4><p>Bei einem Erguss im Kniegelenk füllt sich zuerst der Recessus suprapatellaris. Drückt der Untersucher die Flüssigkeit aus dem Recessus nach distal, hebt diese die Patella von der Femurkondylenfläche ab. Bei einem Druckimpuls auf die Patella sinkt sie kurz ab und springt zurück &mdash; das ist das positive Zeichen der <strong>tanzenden Patella</strong>. Klinisch wichtig: Hinweis auf intraartikulären Erguss z.B. nach Trauma oder bei Gonarthrose-Schub.</p></div>
+
+  <div class="atm-quiz"><h3>zum Knie-Aufbau</h3><div class="atm-frage"><p>Welche Gelenkflächen bilden die Articulatio femorotibialis?</p><div class="atm-mc">
+<input type="radio" name="q014" id="q014o0">
+<label for="q014o0">Patella und Facies patellaris des Femurs</label>
+<div class="atm-feedback atm-falsch" id="q014o0-fb">Falsch &mdash; das ist die Articulatio femoropatellaris.</div>
+<input type="radio" name="q014" id="q014o1">
+<label for="q014o1">Femurkondylen (konvex) und Tibiaplateau (konkav)</label>
+<div class="atm-feedback atm-richtig" id="q014o1-fb">Richtig! Femurkondylen sind konvex, Tibiaplateau ist konkav.</div>
+<input type="radio" name="q014" id="q014o2">
+<label for="q014o2">Femurkondylen und Patella</label>
+<div class="atm-feedback atm-falsch" id="q014o2-fb">Falsch &mdash; die Patella artikuliert mit der Facies patellaris, nicht mit den Kondylen direkt.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welcher Gelenktyp ist die Articulatio femorotibialis?</p><div class="atm-mc">
+<input type="radio" name="q015" id="q015o0">
+<label for="q015o0">Kugelgelenk</label>
+<div class="atm-feedback atm-falsch" id="q015o0-fb">Falsch &mdash; das ist die Hüfte.</div>
+<input type="radio" name="q015" id="q015o1">
+<label for="q015o1">Drehscharniergelenk mit 2 Freiheitsgraden</label>
+<div class="atm-feedback atm-richtig" id="q015o1-fb">Richtig! Flexion/Extension immer möglich; Innen-/Außenrotation nur bei ca. 90 Grad Flexion.</div>
+<input type="radio" name="q015" id="q015o2">
+<label for="q015o2">Reines Scharniergelenk mit 1 Freiheitsgrad</label>
+<div class="atm-feedback atm-falsch" id="q015o2-fb">Falsch &mdash; das Knie kann zusätzlich rotieren, wenn auch nur in Beugestellung.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wo wird typischerweise eine Kniegelenkpunktion durchgeführt?</p><div class="atm-mc">
+<input type="radio" name="q016" id="q016o0">
+<label for="q016o0">Direkt an der Tuberositas tibiae</label>
+<div class="atm-feedback atm-falsch" id="q016o0-fb">Falsch &mdash; dort ist der Gelenkraum nicht zugänglich.</div>
+<input type="radio" name="q016" id="q016o1">
+<label for="q016o1">Am Recessus suprapatellaris</label>
+<div class="atm-feedback atm-richtig" id="q016o1-fb">Richtig! Der Recessus reicht bis zwei Querfinger oberhalb der Patella und ist die typische Punktionsstelle.</div>
+<input type="radio" name="q016" id="q016o2">
+<label for="q016o2">In der Fossa poplitea</label>
+<div class="atm-feedback atm-falsch" id="q016o2-fb">Falsch &mdash; in der Kniekehle verlaufen wichtige Gefäße und Nerven.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wozu dient die Patella funktionell?</p><div class="atm-mc">
+<input type="radio" name="q017" id="q017o0">
+<label for="q017o0">Sie ist ein passiver Stoßdämpfer</label>
+<div class="atm-feedback atm-falsch" id="q017o0-fb">Falsch &mdash; das ist die Aufgabe der Menisken.</div>
+<input type="radio" name="q017" id="q017o1">
+<label for="q017o1">Sie wirkt als Hypomochlion und vergrößert den Hebel des Quadrizeps</label>
+<div class="atm-feedback atm-richtig" id="q017o1-fb">Richtig! Die Patella lässt die Quadrizepssehne weiter vom Drehzentrum entfernt verlaufen &mdash; das verbessert die Hebelwirkung.</div>
+<input type="radio" name="q017" id="q017o2">
+<label for="q017o2">Sie verhindert die Hyperextension des Knies</label>
+<div class="atm-feedback atm-falsch" id="q017o2-fb">Falsch &mdash; das übernehmen Kreuz- und Kollateralbänder.</div>
+</div>
+
+</div></div>
+
+  <div class="atm-reflexion">Lege deine Hand flach auf deine Patella und beuge das Knie langsam. Spüre, wie sich die Patella in den Sulcus zwischen den Femurkondylen einsenkt &mdash; sie wird vom Quadrizeps geführt. In Streckstellung kannst du sie seitlich verschieben, in Beugung wird sie fixiert.</div>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Kniegelenk &mdash; Menisken</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="04_huefte_muskeln.html">← Hüftgelenk — Muskulatur</a>
+  <span class="nav-progress">Kapitel 6 von 12</span>
+  <a class="nav-btn" href="06_knie_menisken.html">→ Kniegelenk — Menisken</a>
+</div>
+</body>
+</html>

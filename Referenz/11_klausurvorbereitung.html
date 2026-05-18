@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klausurvorbereitung — Übersicht und Abschlusstest</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q036o0:checked ~ #q036o0-fb { display:block; } #q036o1:checked ~ #q036o1-fb { display:block; } #q036o2:checked ~ #q036o2-fb { display:block; }
+#q037o0:checked ~ #q037o0-fb { display:block; } #q037o1:checked ~ #q037o1-fb { display:block; } #q037o2:checked ~ #q037o2-fb { display:block; }
+#q038o0:checked ~ #q038o0-fb { display:block; } #q038o1:checked ~ #q038o1-fb { display:block; } #q038o2:checked ~ #q038o2-fb { display:block; }
+#q039o0:checked ~ #q039o0-fb { display:block; } #q039o1:checked ~ #q039o1-fb { display:block; } #q039o2:checked ~ #q039o2-fb { display:block; }
+#q040o0:checked ~ #q040o0-fb { display:block; } #q040o1:checked ~ #q040o1-fb { display:block; } #q040o2:checked ~ #q040o2-fb { display:block; }
+#q041o0:checked ~ #q041o0-fb { display:block; } #q041o1:checked ~ #q041o1-fb { display:block; } #q041o2:checked ~ #q041o2-fb { display:block; }
+#q042o0:checked ~ #q042o0-fb { display:block; } #q042o1:checked ~ #q042o1-fb { display:block; } #q042o2:checked ~ #q042o2-fb { display:block; }
+#q043o0:checked ~ #q043o0-fb { display:block; } #q043o1:checked ~ #q043o1-fb { display:block; } #q043o2:checked ~ #q043o2-fb { display:block; }
+#q044o0:checked ~ #q044o0-fb { display:block; } #q044o1:checked ~ #q044o1-fb { display:block; } #q044o2:checked ~ #q044o2-fb { display:block; }
+#q045o0:checked ~ #q045o0-fb { display:block; } #q045o1:checked ~ #q045o1-fb { display:block; } #q045o2:checked ~ #q045o2-fb { display:block; }
+#q046o0:checked ~ #q046o0-fb { display:block; } #q046o1:checked ~ #q046o1-fb { display:block; } #q046o2:checked ~ #q046o2-fb { display:block; }
+#q047o0:checked ~ #q047o0-fb { display:block; } #q047o1:checked ~ #q047o1-fb { display:block; } #q047o2:checked ~ #q047o2-fb { display:block; }
+#q048o0:checked ~ #q048o0-fb { display:block; } #q048o1:checked ~ #q048o1-fb { display:block; } #q048o2:checked ~ #q048o2-fb { display:block; }
+#q049o0:checked ~ #q049o0-fb { display:block; } #q049o1:checked ~ #q049o1-fb { display:block; } #q049o2:checked ~ #q049o2-fb { display:block; }
+#q050o0:checked ~ #q050o0-fb { display:block; } #q050o1:checked ~ #q050o1-fb { display:block; } #q050o2:checked ~ #q050o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="10_klinik.html">← Klinische Synthese</a>
+  <span class="nav-progress">Kapitel 12 von 12</span>
+  <span class="nav-btn disabled">Ende ✓</span>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 11</p>
+  <h1>Klausurvorbereitung &mdash; Übersicht und Abschlusstest</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Kompakte Übersichten und ein abschließender Test über das gesamte Modul</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Die wichtigsten Inhalte des Moduls in komprimierter Form wiederholen</li>
+      <li>Wissenslücken durch den Abschlusstest erkennen</li>
+      <li>Strategien für die finale Klausurvorbereitung kennen</li>
+    </ul>
+  </div>
+
+  
+  <div class="atm-info"><h4>Wie nutze ich dieses Kapitel?</h4><p>Dieses Kapitel ist kein neuer Stoff &mdash; es bietet dir <strong>kompakte Übersichten</strong> und einen <strong>Abschlusstest</strong> über das gesamte Modul. Nutze die Tabellen zum systematischen Wiederholen und den Test, um Lücken zu erkennen. Ergebnis schlecht? Dann zurück zum jeweiligen Kapitel und nachbereiten.</p></div>
+
+  <h2>11.1 Übersichtstabelle &mdash; Hüftmuskulatur</h2>
+  <table class="atm-tabelle">
+    <thead><tr><th>Muskel</th><th>Funktion (Hüftgelenk)</th><th>Innervation</th></tr></thead>
+    <tbody>
+      <tr><td>M. iliopsoas</td><td>Flexion, Außenrotation</td><td>N. femoralis (L2-L4)</td></tr>
+      <tr><td>M. gluteus maximus</td><td>Extension, Außenrotation</td><td>N. gluteus inferior (L5-S2)</td></tr>
+      <tr><td>M. gluteus medius / minimus</td><td>Abduktion, Pelvisstabilisation</td><td>N. gluteus superior (L4-S1)</td></tr>
+      <tr><td>M. tensor fasciae latae</td><td>Abduktion, Flexion, Innenrotation</td><td>N. gluteus superior</td></tr>
+      <tr><td>M. piriformis</td><td>Außenrotation (0 Grad), Innenrotation (&gt;60 Grad)</td><td>Plexus sacralis</td></tr>
+      <tr><td>Pelvitrochantäre Muskeln</td><td>Außenrotation</td><td>Plexus sacralis</td></tr>
+      <tr><td>Adduktoren (Pectineus, Adductor brevis/longus/magnus, Gracilis)</td><td>Adduktion</td><td>N. obturatorius (L2-L4)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>11.2 Übersichtstabelle &mdash; Kniemuskulatur</h2>
+  <table class="atm-tabelle">
+    <thead><tr><th>Muskel</th><th>Funktion (Kniegelenk)</th><th>Zweigelenkig?</th><th>Innervation</th></tr></thead>
+    <tbody>
+      <tr><td>M. quadriceps femoris (4 Anteile)</td><td>Extension</td><td>Nur M. rectus femoris</td><td>N. femoralis (L2-L4)</td></tr>
+      <tr><td>M. biceps femoris</td><td>Flexion + Außenrotation</td><td>Caput longum: ja</td><td>N. tibialis / N. fibularis communis</td></tr>
+      <tr><td>M. semitendinosus / semimembranosus</td><td>Flexion + Innenrotation</td><td>ja</td><td>N. tibialis (L5-S2)</td></tr>
+      <tr><td>M. sartorius</td><td>Flexion + Innenrotation</td><td>ja</td><td>N. femoralis</td></tr>
+      <tr><td>M. gracilis</td><td>Flexion + Innenrotation</td><td>ja</td><td>N. obturatorius</td></tr>
+      <tr><td>M. gastrocnemius</td><td>Flexion (sekundär)</td><td>ja</td><td>N. tibialis (S1-S2)</td></tr>
+      <tr><td>M. popliteus</td><td>Flexion + Innenrotation, Unlocker</td><td>nein (eingelenkig)</td><td>N. tibialis</td></tr>
+    </tbody>
+  </table>
+
+  <h2>11.3 Übersichtstabelle &mdash; Bandapparat des Knies</h2>
+  <table class="atm-tabelle">
+    <thead><tr><th>Band</th><th>Verlauf</th><th>Hauptfunktion</th><th>Verwachsung</th></tr></thead>
+    <tbody>
+      <tr><td>Lig. collaterale mediale</td><td>Epicondylus medialis &rarr; Tibia medial</td><td>hemmt Valgus</td><td>Kapsel + Innenmeniskus</td></tr>
+      <tr><td>Lig. collaterale laterale</td><td>Epicondylus lateralis &rarr; Caput fibulae</td><td>hemmt Varus</td><td>frei</td></tr>
+      <tr><td>Lig. cruciatum anterius</td><td>Area intercond. ant. tibiae &rarr; Cond. lat. femoris</td><td>hemmt vordere Schublade</td><td>intraartikulär, extrasynovial</td></tr>
+      <tr><td>Lig. cruciatum posterius</td><td>Area intercond. post. tibiae &rarr; Cond. med. femoris</td><td>hemmt hintere Schublade</td><td>intraartikulär, extrasynovial</td></tr>
+      <tr><td>Lig. patellae</td><td>Patella &rarr; Tuberositas tibiae</td><td>Streckapparat</td><td>oberflächlich</td></tr>
+    </tbody>
+  </table>
+
+  <h2>11.4 Abschlusstest &mdash; gemischt</h2>
+  <p>15 Fragen aus dem gesamten Modul. Du brauchst keine Hilfsmittel. Bei jeder Frage gibt es nur eine
+  richtige Antwort. Klicke deine Wahl an &mdash; das Feedback erscheint sofort.</p>
+
+  <div class="atm-quiz"><h3>&mdash; Abschlusstest</h3><div class="atm-frage"><p>Welche Achse gehört zur Knieflexion / -extension?</p><div class="atm-mc">
+<input type="radio" name="q036" id="q036o0">
+<label for="q036o0">Frontotransversal</label>
+<div class="atm-feedback atm-richtig" id="q036o0-fb">Richtig! Bewegung in der Sagittalebene um die frontotransversale Achse.</div>
+<input type="radio" name="q036" id="q036o1">
+<label for="q036o1">Sagittotransversal</label>
+<div class="atm-feedback atm-falsch" id="q036o1-fb">Falsch &mdash; das wäre Abduktion / Adduktion.</div>
+<input type="radio" name="q036" id="q036o2">
+<label for="q036o2">Frontosagittal (Längsachse)</label>
+<div class="atm-feedback atm-falsch" id="q036o2-fb">Falsch &mdash; das wäre Innen- / Außenrotation.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wie heißt das stärkste Band des menschlichen Körpers?</p><div class="atm-mc">
+<input type="radio" name="q037" id="q037o0">
+<label for="q037o0">Lig. patellae</label>
+<div class="atm-feedback atm-falsch" id="q037o0-fb">Falsch.</div>
+<input type="radio" name="q037" id="q037o1">
+<label for="q037o1">Lig. iliofemorale (Bertini-Band)</label>
+<div class="atm-feedback atm-richtig" id="q037o1-fb">Richtig! Das Lig. iliofemorale ist das stärkste Band.</div>
+<input type="radio" name="q037" id="q037o2">
+<label for="q037o2">Lig. cruciatum posterius</label>
+<div class="atm-feedback atm-falsch" id="q037o2-fb">Falsch.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Verschraubungs-Stellung hat das Hüftgelenk?</p><div class="atm-mc">
+<input type="radio" name="q038" id="q038o0">
+<label for="q038o0">Maximale Verschraubung in Flexion</label>
+<div class="atm-feedback atm-falsch" id="q038o0-fb">Falsch &mdash; in Flexion sind die Bänder entspannt.</div>
+<input type="radio" name="q038" id="q038o1">
+<label for="q038o1">Maximale Verschraubung in Extension</label>
+<div class="atm-feedback atm-richtig" id="q038o1-fb">Richtig! In Streckstellung sind die Bänder maximal angespannt.</div>
+<input type="radio" name="q038" id="q038o2">
+<label for="q038o2">Maximale Verschraubung bei 90 Grad Flexion</label>
+<div class="atm-feedback atm-falsch" id="q038o2-fb">Falsch &mdash; das ist eine Loose-pack-Stellung.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welcher Muskel setzt am Trochanter minor an?</p><div class="atm-mc">
+<input type="radio" name="q039" id="q039o0">
+<label for="q039o0">M. gluteus medius</label>
+<div class="atm-feedback atm-falsch" id="q039o0-fb">Falsch &mdash; der zieht zum Trochanter major.</div>
+<input type="radio" name="q039" id="q039o1">
+<label for="q039o1">M. iliopsoas</label>
+<div class="atm-feedback atm-richtig" id="q039o1-fb">Richtig! Der stärkste Hüftbeuger setzt am Trochanter minor an.</div>
+<input type="radio" name="q039" id="q039o2">
+<label for="q039o2">M. piriformis</label>
+<div class="atm-feedback atm-falsch" id="q039o2-fb">Falsch &mdash; der zieht zum Trochanter major.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Muskeln verursachen ein positives Trendelenburg-Zeichen, wenn sie geschwächt sind?</p><div class="atm-mc">
+<input type="radio" name="q040" id="q040o0">
+<label for="q040o0">M. iliopsoas</label>
+<div class="atm-feedback atm-falsch" id="q040o0-fb">Falsch &mdash; der ist Hüftbeuger, nicht Pelvisstabilisator in der Frontalebene.</div>
+<input type="radio" name="q040" id="q040o1">
+<label for="q040o1">M. gluteus medius und minimus</label>
+<div class="atm-feedback atm-richtig" id="q040o1-fb">Richtig! Diese Muskeln stabilisieren das Becken in der Frontalebene.</div>
+<input type="radio" name="q040" id="q040o2">
+<label for="q040o2">M. quadriceps femoris</label>
+<div class="atm-feedback atm-falsch" id="q040o2-fb">Falsch &mdash; der ist Knie-, kein Hüft-Stabilisator.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Aus welchen Knochen entsteht das Os coxae?</p><div class="atm-mc">
+<input type="radio" name="q041" id="q041o0">
+<label for="q041o0">Ilium, Ischii, Pubis</label>
+<div class="atm-feedback atm-richtig" id="q041o0-fb">Richtig!</div>
+<input type="radio" name="q041" id="q041o1">
+<label for="q041o1">Ilium, Sacrum, Pubis</label>
+<div class="atm-feedback atm-falsch" id="q041o1-fb">Falsch &mdash; Sacrum gehört zur Wirbelsäule.</div>
+<input type="radio" name="q041" id="q041o2">
+<label for="q041o2">Femur, Ischii, Pubis</label>
+<div class="atm-feedback atm-falsch" id="q041o2-fb">Falsch &mdash; Femur ist der Oberschenkelknochen.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Kniemuskeln bilden den Pes anserinus superficialis?</p><div class="atm-mc">
+<input type="radio" name="q042" id="q042o0">
+<label for="q042o0">Sartorius, Gracilis, Semimembranosus</label>
+<div class="atm-feedback atm-falsch" id="q042o0-fb">Falsch &mdash; Semimembranosus geht zum Pes anserinus profundus.</div>
+<input type="radio" name="q042" id="q042o1">
+<label for="q042o1">Sartorius, Gracilis, Semitendinosus</label>
+<div class="atm-feedback atm-richtig" id="q042o1-fb">Richtig! Eselsbrücke: Sags gerade.</div>
+<input type="radio" name="q042" id="q042o2">
+<label for="q042o2">Quadriceps, Sartorius, Gracilis</label>
+<div class="atm-feedback atm-falsch" id="q042o2-fb">Falsch &mdash; Quadriceps zieht zur Tuberositas tibiae.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Form hat der Außenmeniskus?</p><div class="atm-mc">
+<input type="radio" name="q043" id="q043o0">
+<label for="q043o0">C-förmig</label>
+<div class="atm-feedback atm-falsch" id="q043o0-fb">Falsch &mdash; das ist der Innenmeniskus.</div>
+<input type="radio" name="q043" id="q043o1">
+<label for="q043o1">O-förmig</label>
+<div class="atm-feedback atm-richtig" id="q043o1-fb">Richtig!</div>
+<input type="radio" name="q043" id="q043o2">
+<label for="q043o2">Halbmondförmig</label>
+<div class="atm-feedback atm-falsch" id="q043o2-fb">Falsch &mdash; das beschreibt die Facies lunata im Acetabulum.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welcher Test prüft das LCA?</p><div class="atm-mc">
+<input type="radio" name="q044" id="q044o0">
+<label for="q044o0">Trendelenburg</label>
+<div class="atm-feedback atm-falsch" id="q044o0-fb">Falsch &mdash; das ist ein Hüft-Pelvistabilitätstest.</div>
+<input type="radio" name="q044" id="q044o1">
+<label for="q044o1">Vordere Schublade / Lachman-Test</label>
+<div class="atm-feedback atm-richtig" id="q044o1-fb">Richtig!</div>
+<input type="radio" name="q044" id="q044o2">
+<label for="q044o2">McMurray</label>
+<div class="atm-feedback atm-falsch" id="q044o2-fb">Falsch &mdash; das ist ein Meniskustest.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wie lautet die Funktion des M. popliteus?</p><div class="atm-mc">
+<input type="radio" name="q045" id="q045o0">
+<label for="q045o0">Stabilisierung der Patella</label>
+<div class="atm-feedback atm-falsch" id="q045o0-fb">Falsch.</div>
+<input type="radio" name="q045" id="q045o1">
+<label for="q045o1">Knieflexion + Innenrotation, Unlocker</label>
+<div class="atm-feedback atm-richtig" id="q045o1-fb">Richtig! Er hebt die Schlussrotation auf und ermöglicht so die Beugung.</div>
+<input type="radio" name="q045" id="q045o2">
+<label for="q045o2">Plantarflexion im Sprunggelenk</label>
+<div class="atm-feedback atm-falsch" id="q045o2-fb">Falsch &mdash; das ist die Funktion des M. gastrocnemius / soleus.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche drei Strukturen sind bei der Unhappy Triad verletzt?</p><div class="atm-mc">
+<input type="radio" name="q046" id="q046o0">
+<label for="q046o0">Innenband, Innenmeniskus, LCA</label>
+<div class="atm-feedback atm-richtig" id="q046o0-fb">Richtig! Innen-Innen-Vorne.</div>
+<input type="radio" name="q046" id="q046o1">
+<label for="q046o1">Außenband, Außenmeniskus, LCP</label>
+<div class="atm-feedback atm-falsch" id="q046o1-fb">Falsch &mdash; diese Kombination ist nicht klassisch.</div>
+<input type="radio" name="q046" id="q046o2">
+<label for="q046o2">Patella, LCA, LCP</label>
+<div class="atm-feedback atm-falsch" id="q046o2-fb">Falsch &mdash; die Patella ist nicht typisch betroffen.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wo verläuft normalerweise der N. ischiadicus durch das Becken?</p><div class="atm-mc">
+<input type="radio" name="q047" id="q047o0">
+<label for="q047o0">Foramen suprapiriforme</label>
+<div class="atm-feedback atm-falsch" id="q047o0-fb">Falsch &mdash; das ist der Verlauf des N. gluteus superior.</div>
+<input type="radio" name="q047" id="q047o1">
+<label for="q047o1">Foramen infrapiriforme</label>
+<div class="atm-feedback atm-richtig" id="q047o1-fb">Richtig! Daher kann er bei Piriformis-Hypertonie komprimiert werden.</div>
+<input type="radio" name="q047" id="q047o2">
+<label for="q047o2">Foramen obturatum</label>
+<div class="atm-feedback atm-falsch" id="q047o2-fb">Falsch &mdash; durch das Foramen obturatum verläuft der N. obturatorius.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Funktion verschiebt sich bei zunehmender Hüftflexion am M. piriformis?</p><div class="atm-mc">
+<input type="radio" name="q048" id="q048o0">
+<label for="q048o0">Außenrotator wird zu Innenrotator</label>
+<div class="atm-feedback atm-richtig" id="q048o0-fb">Richtig! Funktionsumkehr ab ca. 60 Grad Hüftflexion.</div>
+<input type="radio" name="q048" id="q048o1">
+<label for="q048o1">Abduktor wird zu Adduktor</label>
+<div class="atm-feedback atm-falsch" id="q048o1-fb">Falsch.</div>
+<input type="radio" name="q048" id="q048o2">
+<label for="q048o2">Flexor wird zu Extensor</label>
+<div class="atm-feedback atm-falsch" id="q048o2-fb">Falsch &mdash; der Piriformis ist gar kein primärer Flexor / Extensor.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Bewegung kann das Knie nur in 90 Grad Flexion ausführen?</p><div class="atm-mc">
+<input type="radio" name="q049" id="q049o0">
+<label for="q049o0">Flexion / Extension</label>
+<div class="atm-feedback atm-falsch" id="q049o0-fb">Falsch &mdash; die ist immer möglich.</div>
+<input type="radio" name="q049" id="q049o1">
+<label for="q049o1">Innen- / Außenrotation</label>
+<div class="atm-feedback atm-richtig" id="q049o1-fb">Richtig! In Streckung wird die Rotation durch die Bänder verriegelt.</div>
+<input type="radio" name="q049" id="q049o2">
+<label for="q049o2">Abduktion / Adduktion</label>
+<div class="atm-feedback atm-falsch" id="q049o2-fb">Falsch &mdash; im Knie gibt es im Wesentlichen keine Abd/Add.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Bewegung ist beim Mechanismus der Unhappy Triad zentral?</p><div class="atm-mc">
+<input type="radio" name="q050" id="q050o0">
+<label for="q050o0">Hyperextension bei freiem Bein</label>
+<div class="atm-feedback atm-falsch" id="q050o0-fb">Falsch.</div>
+<input type="radio" name="q050" id="q050o1">
+<label for="q050o1">Außenrotation und Valgusstress bei fixiertem Fuß</label>
+<div class="atm-feedback atm-richtig" id="q050o1-fb">Richtig! Klassischer Skiunfall.</div>
+<input type="radio" name="q050" id="q050o2">
+<label for="q050o2">Innenrotation und Varusstress</label>
+<div class="atm-feedback atm-falsch" id="q050o2-fb">Falsch &mdash; das würde eher das Außenband belasten.</div>
+</div>
+
+</div></div>
+
+  <h2>11.5 Zum Abschluss</h2>
+  <div class="atm-info"><h4>Tipps für die Klausurvorbereitung</h4><ol>
+          <li><strong>Lateinisch denken</strong> &mdash; in der Klausur und in der Praxis ist das die Standardsprache.</li>
+          <li><strong>Karteikarten</strong> mit Ursprung / Ansatz / Funktion / Innervation pro Muskel.</li>
+          <li><strong>Funktion vor Detail</strong> &mdash; verstehe erst, was ein Muskel tut, dann lerne, wo genau er sitzt.</li>
+          <li><strong>Klinische Bezüge merken</strong> &mdash; sie sind in der Klausur häufig die Auflockerungs-Fragen, in der Praxis aber das Wesentliche.</li>
+          <li><strong>Selbsttests an dir selbst</strong> &mdash; Bewegungen ausprobieren, Strukturen tasten.</li>
+        </ol></div>
+
+  <div class="atm-reflexion">Du hast das Modul durchgearbeitet &mdash; bewerte selbst: Welche drei Themen sitzen sicher? Welche drei Themen brauchen noch Wiederholung? Und wo siehst du die Verbindung zwischen Anatomie und der späteren therapeutischen Arbeit am deutlichsten?</div>
+
+  <p style="margin-top:32px;font-size:0.9em;color:#666;text-align:center;">
+    <em>Vielen Dank für dein Engagement &mdash; viel Erfolg in der Klausur und auf deinem weiteren Weg in die Physiotherapie.</em>
+  </p>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln.</p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="10_klinik.html">← Klinische Synthese</a>
+  <span class="nav-progress">Kapitel 12 von 12</span>
+  <span class="nav-btn disabled">Ende ✓</span>
+</div>
+</body>
+</html>

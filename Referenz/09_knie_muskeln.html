@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kniegelenk — Muskulatur</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q028o0:checked ~ #q028o0-fb { display:block; } #q028o1:checked ~ #q028o1-fb { display:block; } #q028o2:checked ~ #q028o2-fb { display:block; }
+#q029o0:checked ~ #q029o0-fb { display:block; } #q029o1:checked ~ #q029o1-fb { display:block; } #q029o2:checked ~ #q029o2-fb { display:block; }
+#q030o0:checked ~ #q030o0-fb { display:block; } #q030o1:checked ~ #q030o1-fb { display:block; } #q030o2:checked ~ #q030o2-fb { display:block; }
+#q031o0:checked ~ #q031o0-fb { display:block; } #q031o1:checked ~ #q031o1-fb { display:block; } #q031o2:checked ~ #q031o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="08_knie_achsen.html">← Kniegelenk — Beinachsen und klinische Tests</a>
+  <span class="nav-progress">Kapitel 10 von 12</span>
+  <a class="nav-btn" href="10_klinik.html">→ Klinische Synthese</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 9</p>
+  <h1>Kniegelenk &mdash; Muskulatur</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Quadriceps, Hamstrings, Pes anserinus und Co</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Die wichtigsten Knie-Muskeln mit Ursprung, Ansatz, Funktion und Innervation kennen</li>
+      <li>Den Pes anserinus superficialis und seine drei Muskeln benennen</li>
+      <li>Die zweigelenkige Funktion einzelner Muskeln verstehen</li>
+      <li>Die klinische Bedeutung der Hamstrings als LCA-Schutzmuskeln einordnen</li>
+      <li>Die Funktion des M. popliteus als Unlocker erklären</li>
+    </ul>
+  </div>
+
+  
+  <div class="atm-info"><h4>Zweigelenkig &mdash; was heißt das?</h4><p>Viele Knie-Muskeln ziehen über zwei Gelenke (Hüfte UND Knie) und wirken in beiden. Diese <strong>Zweigelenkigkeit</strong> hat Folgen: Die Muskelfunktion hängt von der Gelenkstellung ab, und Verspannungen können sich auf beide Gelenke auswirken. Das gilt v.a. für M. rectus femoris, ischiocrurale Muskulatur, M. sartorius, M. gracilis und M. gastrocnemius.</p></div>
+
+  <h2>9.1 M. quadriceps femoris</h2>
+  <p>Der mit Abstand wichtigste Knie&shy;strecker; vier Anteile mit unterschiedlichen Ursprüngen,
+  aber gemeinsamem Ansatz.</p>
+
+  <div class="atm-muskel">
+    <h4>M. quadriceps femoris</h4>
+    <dl>
+      <dt>Anteile</dt><dd>1. Rectus femoris (zweigelenkig!)<br>2. Vastus medialis<br>3. Vastus lateralis<br>4. Vastus intermedius</dd>
+      <dt>Ursprung</dt><dd>Rectus femoris: Spina iliaca anterior inferior (SIAI), Pfannendach<br>Vastus medialis: Linea intertrochanterica medial, Linea aspera (medial)<br>Vastus lateralis: Trochanter major, Linea aspera (lateral)<br>Vastus intermedius: anteriore Fläche des Femurs</dd>
+      <dt>Ansatz</dt><dd>Quadrizepssehne &rarr; Patella &rarr; Lig. patellae &rarr; Tuberositas tibiae<br>Vastus medialis und lateralis verstärken zusätzlich über das Retinaculum patellae die Gelenkkapsel von ventral</dd>
+      <dt>Funktion</dt><dd>alle vier Anteile: Extension im Kniegelenk<br>M. rectus femoris zusätzlich: Flexion im Hüftgelenk (zweigelenkig)</dd>
+      <dt>Innervation</dt><dd>N. femoralis (L2-L4), ventraler Verlauf</dd>
+      <dt>Reflex</dt><dd>Patellarsehnenreflex (PSR) &mdash; getestet durch Schlag auf das Lig. patellae</dd>
+    </dl>
+  </div>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">M. quadriceps femoris mit allen vier Anteilen, Verlauf der Quadrizepssehne über die Patella</div>
+  
+  <div class="atm-bild-such">m quadriceps femoris anatomie, quadriceps muscle, vastus medialis lateralis intermedius rectus</div>
+</div>
+
+  <h2>9.2 Ischiocrurale Muskulatur (Hamstrings)</h2>
+  <p>Drei Muskeln an der Rückseite des Oberschenkels, die meistens als Gruppe gemeinsam betrachtet
+  werden. Alle entspringen am <strong>Tuber ischiadicum</strong> und sind <strong>zweigelenkig</strong>
+  (Hüfte und Knie).</p>
+
+  <h3>M. biceps femoris</h3>
+  <div class="atm-muskel">
+    <h4>M. biceps femoris</h4>
+    <dl>
+      <dt>Anteile</dt><dd>Caput longum<br>Caput breve</dd>
+      <dt>Ursprung</dt><dd>Caput longum: Tuber ischiadicum<br>Caput breve: Femur, mittleres Drittel der Linea aspera (lateral)</dd>
+      <dt>Ansatz</dt><dd>Caput fibulae (gemeinsame Endsehne)</dd>
+      <dt>Funktion</dt><dd>Kniegelenk: Flexion + <strong>Außen</strong>rotation bei 90 Grad Flexion<br>Caput longum zusätzlich: Hüftgelenk Extension, Beckenstabilisierung</dd>
+      <dt>Innervation</dt><dd>Caput longum: N. tibialis (L5-S2)<br>Caput breve: N. fibularis communis (L5-S2)</dd>
+    </dl>
+  </div>
+
+  <h3>M. semitendinosus und M. semimembranosus</h3>
+  <div class="atm-muskel">
+    <h4>M. semitendinosus / M. semimembranosus</h4>
+    <dl>
+      <dt>Ursprung</dt><dd>Tuber ischiadicum (M. semitendinosus teilweise vom Lig. sacrotuberale)</dd>
+      <dt>Ansatz</dt><dd>M. semitendinosus: Pes anserinus <em>superficialis</em> (medial der Tuberositas tibiae) &mdash; als Sehnenstrang<br>M. semimembranosus: Pes anserinus <em>profundus</em> &mdash; als Sehnenmembran</dd>
+      <dt>Funktion</dt><dd>Kniegelenk: Flexion + <strong>Innen</strong>rotation bei 90 Grad Flexion<br>Hüftgelenk: Extension, leichte Adduktion, Beckenstabilisierung</dd>
+      <dt>Innervation</dt><dd>N. tibialis (L5-S2), dorsaler Verlauf</dd>
+    </dl>
+  </div>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Ischiocrurale Muskulatur an der Oberschenkelrückseite: biceps femoris lateral, semitendinosus / semimembranosus medial</div>
+  
+  <div class="atm-bild-such">ischiocrurale muskulatur, hamstrings anatomy, biceps femoris semitendinosus</div>
+</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Funktion der ischiocruralen Muskulatur</h4><p>Die Hamstrings haben drei klinisch wichtige Funktionen, die über die reine Knieflexion hinausgehen:</p>
+          <ol>
+            <li><strong>Exzentrische Bremsfunktion</strong> beim Laufen, Landen und Treppabgehen &mdash; sie bremsen die
+                Streckbewegung und schützen vor Überstreckung.</li>
+            <li><strong>Dynamische Knie-Stabilität</strong> &mdash; sie sichern die Tibia nach dorsal und entlasten so
+                das LCA. Eine Schwäche der Hamstrings erhöht das Risiko für vordere Kreuzbandverletzungen.</li>
+            <li><strong>Becken- und Rumpfstabilität</strong> in Synergie mit dem M. gluteus maximus.</li>
+          </ol></div>
+
+  <h2>9.3 M. sartorius</h2>
+  <p>Der <em>Schneidermuskel</em> &mdash; der längste Muskel des menschlichen Körpers. Verläuft schräg
+  über den Oberschenkel von lateral-oben nach medial-unten.</p>
+
+  <div class="atm-muskel">
+    <h4>M. sartorius</h4>
+    <dl>
+      <dt>Ursprung</dt><dd>SIAS (Spina iliaca anterior superior)</dd>
+      <dt>Ansatz</dt><dd>Pes anserinus superficialis</dd>
+      <dt>Funktion</dt><dd>Kniegelenk: Flexion + Innenrotation bei 90 Grad Flexion<br>Hüftgelenk: Flexion, Abduktion, Außenrotation</dd>
+      <dt>Innervation</dt><dd>N. femoralis (L2-L4), ventraler Verlauf</dd>
+    </dl>
+  </div>
+
+  <h2>9.4 M. gracilis</h2>
+  <p>Der <em>schlanke Muskel</em> &mdash; der einzige Adduktor, der über das Kniegelenk hinwegzieht.</p>
+
+  <div class="atm-muskel">
+    <h4>M. gracilis</h4>
+    <dl>
+      <dt>Ursprung</dt><dd>Ramus inferior ossis pubis</dd>
+      <dt>Ansatz</dt><dd>Pes anserinus superficialis</dd>
+      <dt>Funktion</dt><dd>Kniegelenk: Flexion + Innenrotation bei 90 Grad Flexion<br>Hüftgelenk: Adduktion</dd>
+      <dt>Innervation</dt><dd>N. obturatorius (L2-L4), ventraler Verlauf</dd>
+    </dl>
+  </div>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Pes anserinus superficialis: gemeinsamer Ansatz von Sartorius, Gracilis und Semitendinosus medial der Tuberositas tibiae</div>
+  
+  <div class="atm-bild-such">pes anserinus anatomie, pes anserinus superficialis, sartorius gracilis semitendinosus</div>
+</div>
+
+  <div class="atm-merke"><strong>Pes anserinus (Gänsefuß) superficialis</strong>: <strong>S</strong>artorius, <strong>G</strong>racilis und <strong>S</strong>emitendinosus setzen gemeinsam medial der Tuberositas tibiae an. Eselsbrücke: <em>Sags gerade</em> &mdash; <strong>S</strong>artorius, <strong>G</strong>racilis, <strong>S</strong>emitendinosus. Alle drei beugen das Knie und rotieren bei 90 Grad Flexion nach innen.</div>
+
+  <h2>9.5 M. gastrocnemius</h2>
+  <p>Der oberflächliche Wadenmuskel &mdash; eigentlich primär ein Plantarflexor des Sprunggelenks,
+  aber als zweigelenkiger Muskel auch am Knie wirksam.</p>
+
+  <div class="atm-muskel">
+    <h4>M. gastrocnemius</h4>
+    <dl>
+      <dt>Ursprung</dt><dd>Caput mediale: Condylus medialis femoris (dorsal)<br>Caput laterale: Condylus lateralis femoris (dorsal)<br>(jeweils kranial der Gelenkflächen)</dd>
+      <dt>Ansatz</dt><dd>über die Tendo calcaneus (Achillessehne) am Tuber calcanei</dd>
+      <dt>Funktion</dt><dd>OSG (Art. talocruralis): Plantarflexion<br>Kniegelenk: Flexion</dd>
+      <dt>Innervation</dt><dd>N. tibialis (S1-S2), dorsaler Verlauf</dd>
+    </dl>
+  </div>
+
+  <h2>9.6 M. popliteus</h2>
+  <p>Ein kleiner, aber funktionell sehr wichtiger Muskel in der Kniekehle. Er wird oft der
+  <em>Unlocker</em> des Kniegelenks genannt.</p>
+
+  <div class="atm-muskel">
+    <h4>M. popliteus</h4>
+    <dl>
+      <dt>Ursprung</dt><dd>Condylus lateralis femoris + Gelenkkapsel (oft auch Verbindung zum lateralen Meniskus)</dd>
+      <dt>Ansatz</dt><dd>Facies posterior tibiae, oberhalb der Linea m. solei</dd>
+      <dt>Funktion</dt><dd>Kniegelenk: Flexion + Innenrotation<br><strong>Unlocker</strong> &mdash; initiiert die Beugung aus der Endstreckung, indem er die Schlussrotation aufhebt</dd>
+      <dt>Innervation</dt><dd>N. tibialis (L4-S1), dorsaler Verlauf</dd>
+    </dl>
+  </div>
+
+  <div class="atm-merke">Aus voller Streckung lässt sich das Knie nicht direkt beugen, weil es durch die Schlussrotation verriegelt ist. Der M. popliteus löst diese Verriegelung durch eine kleine Innenrotation der Tibia gegenüber dem Femur &mdash; erst danach können die anderen Knieflexoren wirken.</div>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Pes anserinus, Hamstrings und Quadrizeps live am Modell zeigen</div>
+  <div class="atm-video-such">kniemuskulatur überblick, knee muscles overview anatomy</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <div class="atm-quiz"><h3>zur Kniemuskulatur</h3><div class="atm-frage"><p>Welcher Anteil des M. quadriceps femoris ist zweigelenkig?</p><div class="atm-mc">
+<input type="radio" name="q028" id="q028o0">
+<label for="q028o0">M. vastus medialis</label>
+<div class="atm-feedback atm-falsch" id="q028o0-fb">Falsch. Die Vasti haben alle ihren Ursprung am Femur und sind nur am Knie wirksam.</div>
+<input type="radio" name="q028" id="q028o1">
+<label for="q028o1">M. rectus femoris</label>
+<div class="atm-feedback atm-richtig" id="q028o1-fb">Richtig! Der Rectus femoris entspringt an der SIAI (Becken) und ist deshalb auch im Hüftgelenk wirksam (Flexion).</div>
+<input type="radio" name="q028" id="q028o2">
+<label for="q028o2">M. vastus lateralis</label>
+<div class="atm-feedback atm-falsch" id="q028o2-fb">Falsch &mdash; auch er entspringt am Femur.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Hamstring-Funktion ist bei 90 Grad Knieflexion <em>außen</em>rotierend?</p><div class="atm-mc">
+<input type="radio" name="q029" id="q029o0">
+<label for="q029o0">M. semitendinosus</label>
+<div class="atm-feedback atm-falsch" id="q029o0-fb">Falsch &mdash; er rotiert nach innen.</div>
+<input type="radio" name="q029" id="q029o1">
+<label for="q029o1">M. semimembranosus</label>
+<div class="atm-feedback atm-falsch" id="q029o1-fb">Falsch &mdash; auch er rotiert nach innen.</div>
+<input type="radio" name="q029" id="q029o2">
+<label for="q029o2">M. biceps femoris</label>
+<div class="atm-feedback atm-richtig" id="q029o2-fb">Richtig! Der M. biceps femoris ist der einzige der Hamstrings, der das gebeugte Knie nach <em>außen</em> rotiert &mdash; weil er lateral an der Fibula ansetzt.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche drei Muskeln bilden den Pes anserinus superficialis?</p><div class="atm-mc">
+<input type="radio" name="q030" id="q030o0">
+<label for="q030o0">Sartorius, Gracilis, Semimembranosus</label>
+<div class="atm-feedback atm-falsch" id="q030o0-fb">Falsch &mdash; der Semimembranosus zieht zum Pes anserinus <em>profundus</em>.</div>
+<input type="radio" name="q030" id="q030o1">
+<label for="q030o1">Sartorius, Gracilis, Semitendinosus</label>
+<div class="atm-feedback atm-richtig" id="q030o1-fb">Richtig! Eselsbrücke: <em>Sags gerade</em>. Alle drei beugen das Knie und innenrotieren bei 90 Grad Flexion.</div>
+<input type="radio" name="q030" id="q030o2">
+<label for="q030o2">Quadriceps, Sartorius, Gracilis</label>
+<div class="atm-feedback atm-falsch" id="q030o2-fb">Falsch &mdash; der Quadriceps zieht über das Lig. patellae zur Tuberositas tibiae.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wie initiiert der M. popliteus die Knieflexion aus voller Streckung?</p><div class="atm-mc">
+<input type="radio" name="q031" id="q031o0">
+<label for="q031o0">Durch eine Außenrotation der Tibia gegenüber dem Femur</label>
+<div class="atm-feedback atm-falsch" id="q031o0-fb">Falsch. Eine Außenrotation würde das Knie noch stärker verriegeln.</div>
+<input type="radio" name="q031" id="q031o1">
+<label for="q031o1">Durch eine kleine Innenrotation der Tibia, die die Schlussrotation aufhebt</label>
+<div class="atm-feedback atm-richtig" id="q031o1-fb">Richtig! Erst nach dieser Entriegelung können die anderen Knieflexoren wirken &mdash; daher der Spitzname Unlocker.</div>
+<input type="radio" name="q031" id="q031o2">
+<label for="q031o2">Indem er die Patella nach distal zieht</label>
+<div class="atm-feedback atm-falsch" id="q031o2-fb">Falsch &mdash; das ist nicht seine Aufgabe.</div>
+</div>
+
+</div>
+<div class="atm-frage">
+      <p><strong>Funktionelle Frage:</strong> Warum kann der M. rectus femoris seine volle Kraft als Kniestrecker nicht entfalten, wenn die Hüfte stark gebeugt ist?</p>
+      <details class="atm-lösung"><summary></summary><p>Als zweigelenkiger Muskel verkürzt sich der Rectus femoris bei <em>Hüftflexion</em>. In dieser verkürzten Stellung kann er weniger zusätzliche Kontraktionskraft für die <em>Knieextension</em> entwickeln &mdash; das Phänomen heißt <strong>aktive Insuffizienz</strong>. Umgekehrt: Bei <em>Hüftextension</em> wird der Rectus vorgespannt und kann mehr Kraft entwickeln. Praktische Konsequenz: Quadrizeps-Training in unterschiedlichen Hüftstellungen aktiviert die einzelnen Anteile unterschiedlich.</p></details>
+    </div></div>
+
+  <div class="atm-reflexion">Setze dich auf einen Stuhl, lass das Knie 90 Grad gebeugt und versuche aktiv eine Innenrotation der Tibia auszuführen (Fuß leicht nach innen drehen). Welche Muskeln spürst du arbeiten? Vergleiche mit der Außenrotation. Pflege diesen Selbstversuch &mdash; er hilft beim Verständnis von Muskelfunktionen ungemein.</div>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Klinische Synthese</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="08_knie_achsen.html">← Kniegelenk — Beinachsen und klinische Tests</a>
+  <span class="nav-progress">Kapitel 10 von 12</span>
+  <a class="nav-btn" href="10_klinik.html">→ Klinische Synthese</a>
+</div>
+</body>
+</html>

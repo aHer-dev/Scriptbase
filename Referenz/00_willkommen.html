@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Willkommen im Modul</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <span class="nav-btn disabled">← Anfang</span>
+  <span class="nav-progress">Kapitel 1 von 12</span>
+  <a class="nav-btn" href="01_grundlagen.html">→ Anatomische Grundlagen</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 0</p>
+  <h1>Willkommen im Modul</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Anatomie der unteren Extremität &mdash; Hüfte und Knie</p>
+
+  
+  <p>Herzlich willkommen im Lernmodul <strong>Anatomie der unteren Extremität &mdash; Hüfte und Knie</strong>.
+  Dieses Modul richtet sich an Studierende im 1. Lehrjahr Physiotherapie und ist als
+  <strong>Selbstlernmodul</strong> konzipiert: Du arbeitest die Kapitel in deinem eigenen Tempo durch,
+  überprüfst dein Verständnis mit kurzen Selbsttests und vertiefst die Inhalte mit Videos und Schemazeichnungen.</p>
+
+  <h2>So nutzt du dieses Modul</h2>
+  <ul>
+    <li><strong>Kapitelreihenfolge:</strong> Die Kapitel bauen aufeinander auf. Beginne mit den
+        anatomischen Grundlagen, bevor du dich den Gelenken widmest.</li>
+    <li><strong>Selbsttests:</strong> Am Ende jedes Kapitels findest du Multiple-Choice-Fragen
+        und Lösungs-Boxen zum Ausklappen. Klicke einfach auf eine Antwortoption &mdash; das
+        Feedback erscheint sofort.</li>
+    <li><strong>Videos & Bilder:</strong> Wo du Symbole für Video- oder Bildplatzhalter siehst,
+        ergänzt deine Lehrkraft passendes Material. Die Suchbegriffe geben dir Hinweise, was
+        gleich kommen wird.</li>
+    <li><strong>Klinische Bezüge:</strong> Rote Boxen zeigen, wo Anatomiewissen in der Praxis
+        wichtig wird &mdash; achte besonders auf diese Stellen.</li>
+  </ul>
+
+  <h2>Lernpfad &mdash; Übersicht</h2>
+  <table class="atm-tabelle">
+    <thead><tr><th>Kapitel</th><th>Inhalt</th><th>Geschätzte Bearbeitungszeit</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Anatomische Grundlagen (Lage, Ebenen, Achsen, Gelenktypen)</td><td>30 Min</td></tr>
+      <tr><td>2</td><td>Hüfte &mdash; Knöcherne Strukturen</td><td>25 Min</td></tr>
+      <tr><td>3</td><td>Hüfte &mdash; Gelenkflächen, Bewegung & Bandapparat</td><td>30 Min</td></tr>
+      <tr><td>4</td><td>Hüfte &mdash; Muskulatur</td><td>40 Min</td></tr>
+      <tr><td>5</td><td>Knie &mdash; Aufbau, Knochen & Recessus</td><td>25 Min</td></tr>
+      <tr><td>6</td><td>Knie &mdash; Menisken</td><td>20 Min</td></tr>
+      <tr><td>7</td><td>Knie &mdash; Bandapparat</td><td>30 Min</td></tr>
+      <tr><td>8</td><td>Knie &mdash; Beinachsen & Schubladentest</td><td>20 Min</td></tr>
+      <tr><td>9</td><td>Knie &mdash; Muskulatur</td><td>40 Min</td></tr>
+      <tr><td>10</td><td>Klinische Synthese (Unhappy Triad, Trendelenburg, Piriformis)</td><td>25 Min</td></tr>
+      <tr><td>11</td><td>Klausurvorbereitung &mdash; Übersicht & Abschlusstest</td><td>30 Min</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.9em;color:#555;"><em>Gesamt ca. 5 Stunden Bearbeitungszeit &mdash; verteile sie über mehrere Lerneinheiten.</em></p>
+
+  <h2>Lernzielsystematik</h2>
+  <p>Jedes Kapitel beginnt mit klaren Lernzielen (grüner Kasten oben) und folgt der gleichen Struktur:</p>
+  <ol>
+    <li><strong>Lernziele</strong> &mdash; was du nach dem Kapitel können sollst</li>
+    <li><strong>Lerntext</strong> mit Strukturierung in Unterkapitel</li>
+    <li><strong>Bilder & Videos</strong> zur Veranschaulichung</li>
+    <li><strong>Merke- und Klinik-Boxen</strong> als Highlights</li>
+    <li><strong>Selbsttest</strong> zur Lernkontrolle</li>
+  </ol>
+
+  <div class="atm-info"><h4>Wichtig zu wissen</h4><p>Die Inhalte basieren auf dem Master-Skript Anatomie der unteren Extremität (1. Lehrjahr Physiotherapie). Lateinische Bezeichnungen verwenden wir konsequent &mdash; das ist die Sprache der Klinik.</p></div>
+
+  <h2>Bevor du startest</h2>
+  <div class="atm-reflexion">Was weißt du schon über Hüfte und Knie? Welche Bewegungen kannst du an dir selbst beobachten? Schreib dir vor dem Durchgang drei Begriffe auf, die dir bereits vertraut sind &mdash; und drei, die dir völlig neu sind. Vergleich am Ende des Moduls.</div>
+
+  <p>Bereit? Dann geht es im nächsten Kapitel los mit den anatomischen Grundlagen.</p>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Anatomische Grundlagen</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <span class="nav-btn disabled">← Anfang</span>
+  <span class="nav-progress">Kapitel 1 von 12</span>
+  <a class="nav-btn" href="01_grundlagen.html">→ Anatomische Grundlagen</a>
+</div>
+</body>
+</html>

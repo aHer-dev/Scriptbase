@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hüftgelenk — Knöcherne Strukturen</title>
+  <script src="scorm_api.js"></script>
+  
+<style>
+.scorm-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; background: #1e5b8a; border-radius: 6px;
+  margin-bottom: 24px; gap: 12px;
+}
+.nav-btn {
+  color: #fff; text-decoration: none; font-size: 0.9em;
+  background: rgba(255,255,255,0.15); padding: 6px 14px;
+  border-radius: 4px; white-space: nowrap;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.3); }
+.nav-btn.disabled { opacity: 0.4; cursor: default; }
+.nav-progress { color: #cde; font-size: 0.85em; }
+</style>
+
+  <style>
+/* ==== Anatomie-Modul: einheitliches Stylesheet ==== */
+.atm { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+       line-height: 1.6; color: #222; max-width: 880px; margin: 0 auto; }
+.atm * { box-sizing: border-box; }
+.atm h1 { color: #1e5b8a; border-bottom: 3px solid #1e5b8a; padding-bottom: 8px;
+          font-size: 1.8em; margin-top: 0; }
+.atm h2 { color: #1e5b8a; margin-top: 1.6em; font-size: 1.35em;
+          border-left: 5px solid #1e5b8a; padding-left: 10px; }
+.atm h3 { color: #2c4a6b; margin-top: 1.3em; font-size: 1.12em; }
+.atm h4 { color: #444; margin-top: 1em; font-size: 1em; }
+.atm p { margin: 0.6em 0; }
+.atm ul, .atm ol { padding-left: 1.4em; }
+.atm li { margin: 0.25em 0; }
+.atm strong { color: #1e3a5b; }
+.atm em { font-style: italic; }
+
+/* Lernziel-Box (grün) */
+.atm-lernziele { background: #eaf5ee; border-left: 5px solid #2c7a5b;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-lernziele h3 { color: #2c7a5b; margin-top: 0; }
+.atm-lernziele ul { margin: 0.5em 0; }
+
+/* Merke / Eselsbrücke (gelb) */
+.atm-merke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-merke::before { content: "Merke: "; font-weight: bold; color: #8a6a0a; }
+
+.atm-eselsbrücke { background: #fff8dc; border-left: 5px solid #d4a017;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-eselsbrücke::before { content: "Eselsbrücke: "; font-weight: bold; color: #8a6a0a; }
+
+/* Klinischer Bezug (rot) */
+.atm-klinik { background: #fdecec; border-left: 5px solid #a13d3d;
+  padding: 14px 18px; border-radius: 4px; margin: 20px 0; }
+.atm-klinik h4 { color: #a13d3d; margin-top: 0; margin-bottom: 8px;
+  font-size: 1.05em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Info-Input (hellblau) */
+.atm-info { background: #e8f0f8; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 18px 0; }
+.atm-info h4 { color: #2c5a8a; margin-top: 0; margin-bottom: 6px; font-size: 1em; }
+
+/* Tabellen */
+.atm-tabelle { width: 100%; border-collapse: collapse; margin: 16px 0;
+  font-size: 0.95em; }
+.atm-tabelle th, .atm-tabelle td { border: 1px solid #ccd6e0;
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.atm-tabelle th { background: #1e5b8a; color: #fff; font-weight: 600; }
+.atm-tabelle tr:nth-child(even) td { background: #f4f7fa; }
+
+/* Muskelbox (kompaktes Datenblatt) */
+.atm-muskel { background: #f4f7fa; border: 1px solid #ccd6e0;
+  border-radius: 6px; padding: 12px 16px; margin: 14px 0; }
+.atm-muskel h4 { color: #1e5b8a; margin: 0 0 8px 0; font-size: 1.08em; }
+.atm-muskel dl { margin: 6px 0; display: grid;
+  grid-template-columns: 130px 1fr; gap: 4px 12px; }
+.atm-muskel dt { font-weight: 600; color: #2c4a6b; }
+.atm-muskel dd { margin: 0; }
+
+/* Bild-Platzhalter */
+.atm-bild { background: #f0f2f5; border: 2px dashed #999;
+  padding: 16px; margin: 16px 0; border-radius: 6px; text-align: center; }
+.atm-bild::before { content: "BILD"; display: block;
+  font-weight: bold; color: #555; font-size: 0.85em;
+  letter-spacing: 2px; margin-bottom: 6px; }
+.atm-bild .atm-bild-titel { font-weight: 600; color: #333; }
+.atm-bild .atm-bild-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-bild .atm-bild-such::before { content: "Suchbegriffe (freie Bilder, z.B. Wikimedia Commons / Pixabay): ";
+  font-style: normal; font-weight: 600; }
+
+/* Video-Platzhalter (YouTube) */
+.atm-video { background: #fff3e6; border: 2px dashed #d97706;
+  padding: 16px; margin: 16px 0; border-radius: 6px; }
+.atm-video::before { content: "YouTube-Video"; display: block;
+  font-weight: bold; color: #d97706; font-size: 0.85em;
+  letter-spacing: 1px; margin-bottom: 6px; }
+.atm-video .atm-video-titel { font-weight: 600; color: #333; }
+.atm-video .atm-video-such { font-size: 0.88em; color: #555; margin-top: 6px;
+  font-style: italic; }
+.atm-video .atm-video-such::before { content: "Vorschläge für Suche: ";
+  font-style: normal; font-weight: 600; }
+.atm-video .atm-video-anleit { font-size: 0.85em; color: #777; margin-top: 8px; }
+
+/* Selbsttest (lila) */
+.atm-quiz { background: #f4eef9; border: 2px solid #6b4d8f;
+  border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+.atm-quiz h3 { color: #6b4d8f; margin-top: 0; }
+.atm-quiz h3::before { content: "Selbsttest "; }
+
+.atm-frage { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 6px; padding: 12px 16px; margin: 12px 0; }
+.atm-frage > p:first-child { font-weight: 600; color: #1e3a5b; margin-top: 0; }
+
+/* Multiple-Choice-Optionen mit CSS-only Feedback */
+.atm-mc { margin: 8px 0; }
+.atm-mc input[type="radio"] { display: none; }
+.atm-mc label { display: block; padding: 8px 12px; margin: 4px 0;
+  background: #f4f7fa; border: 1px solid #ccd6e0; border-radius: 4px;
+  cursor: pointer; transition: background 0.15s; }
+.atm-mc label:hover { background: #e3ebf4; }
+.atm-mc label::before { content: ""; display: inline-block; width: 14px; height: 14px;
+  border: 2px solid #888; border-radius: 50%; margin-right: 8px;
+  vertical-align: middle; background: #fff; }
+.atm-mc input[type="radio"]:checked + label { background: #e0d4ec;
+  border-color: #6b4d8f; }
+.atm-mc input[type="radio"]:checked + label::before { background: #6b4d8f;
+  border-color: #6b4d8f; }
+.atm-feedback { display: none; padding: 10px 14px; margin-top: 6px;
+  border-radius: 4px; font-size: 0.95em; }
+.atm-richtig { background: #e0f0e0; border-left: 4px solid #2c7a5b; color: #1e4a30; }
+.atm-falsch { background: #f8e0e0; border: none; border-left: 4px solid #a13d3d; color: #6b2020; }
+
+/* Lösung-aufdecken Box */
+details.atm-lösung { background: #fff; border: 1px solid #d4c5e0;
+  border-radius: 4px; padding: 10px 14px; margin: 8px 0; }
+details.atm-lösung summary { cursor: pointer; font-weight: 600; color: #6b4d8f;
+  list-style: none; }
+details.atm-lösung summary::before { content: "Lösung anzeigen "; }
+details.atm-lösung[open] summary::before { content: "Lösung verbergen "; }
+details.atm-lösung[open] summary { margin-bottom: 8px; border-bottom: 1px solid #e0d4ec; padding-bottom: 6px; }
+
+/* Reflexion */
+.atm-reflexion { background: #f0f5fa; border-left: 5px solid #4682b4;
+  padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+.atm-reflexion::before { content: "Zur Reflexion: "; font-weight: bold; color: #2c5a8a; }
+
+/* Navigation am Ende */
+.atm-nav { margin-top: 32px; padding-top: 16px; border-top: 1px solid #ccd6e0;
+  font-size: 0.9em; color: #666; }
+.atm-nav .atm-nav-hinweis { font-style: italic; }
+
+/* Mobile */
+@media (max-width: 600px) {
+  .atm h1 { font-size: 1.5em; }
+  .atm-muskel dl { grid-template-columns: 1fr; }
+  .atm-muskel dt { margin-top: 6px; }
+}
+
+#q004o0:checked ~ #q004o0-fb { display:block; } #q004o1:checked ~ #q004o1-fb { display:block; } #q004o2:checked ~ #q004o2-fb { display:block; }
+#q005o0:checked ~ #q005o0-fb { display:block; } #q005o1:checked ~ #q005o1-fb { display:block; } #q005o2:checked ~ #q005o2-fb { display:block; }
+#q006o0:checked ~ #q006o0-fb { display:block; } #q006o1:checked ~ #q006o1-fb { display:block; } #q006o2:checked ~ #q006o2-fb { display:block; }</style>
+</head>
+<body>
+<div class="scorm-nav">
+  <a class="nav-btn" href="01_grundlagen.html">← Anatomische Grundlagen</a>
+  <span class="nav-progress">Kapitel 3 von 12</span>
+  <a class="nav-btn" href="03_huefte_gelenk.html">→ Hüftgelenk — Gelenk, Bewegung, Bandapparat</a>
+</div>
+<div class="atm">
+  <p style="color:#888;font-size:0.85em;margin-top:0;">Anatomie: Hüfte und Knie &middot; Kapitel 2</p>
+  <h1>Hüftgelenk &mdash; Knöcherne Strukturen</h1>
+  <p style="color:#555;font-style:italic;margin-top:-6px;">Os coxae und proximaler Femur</p>
+
+  <div class="atm-lernziele">
+    <h3>Lernziele dieses Kapitels</h3>
+    <ul>
+      <li>Das Hüftgelenk als Kugelgelenk mit drei Freiheitsgraden charakterisieren</li>
+      <li>Die wichtigsten knöchernen Strukturen am Os coxae benennen und lokalisieren</li>
+      <li>Die wichtigsten Strukturen am proximalen Femur benennen</li>
+      <li>Die klinische Bedeutung des Collum femoris einordnen</li>
+    </ul>
+  </div>
+
+  
+  <h2>2.1 Allgemeine Charakterisierung</h2>
+  <p>Das Hüftgelenk ist ein <strong>Kugelgelenk</strong> (Articulatio spheroidea) mit drei Freiheitsgraden.
+  Die Gelenkpartner sind das <em>Caput femoris</em> (Femurkopf) und das <em>Acetabulum</em> (Hüftpfanne)
+  des Os coxae. Im Gegensatz zum Schultergelenk ist die <strong>knöcherne Führung deutlich ausgeprägter</strong>
+  &mdash; der Femurkopf wird zu mehr als der Hälfte von der Pfanne umfasst, was Stabilität auf Kosten von
+  Beweglichkeit ergibt.</p>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Übersicht Hüftgelenk: Os coxae mit Acetabulum, Femur proximal mit Caput femoris</div>
+  
+  <div class="atm-bild-such">hüftgelenk anatomie, hip joint anatomy, articulatio coxae</div>
+</div>
+
+  <h2>2.2 Os coxae &mdash; Hüftbein</h2>
+  <p>Das Hüftbein entsteht aus der Verschmelzung dreier Knochen, die im Bereich des Acetabulums zusammentreffen:</p>
+  <ul>
+    <li><strong>Os ilium</strong> (Darmbein) &mdash; kranialer Anteil.</li>
+    <li><strong>Os ischii</strong> (Sitzbein) &mdash; dorsokaudaler Anteil.</li>
+    <li><strong>Os pubis</strong> (Schambein) &mdash; ventrokaudaler Anteil.</li>
+  </ul>
+
+  <h3>Wichtige knöcherne Orientierungspunkte</h3>
+  <ul>
+    <li><strong>Spina iliaca anterior superior (SIAS)</strong> &mdash; oberer vorderer Darmbeinstachel; Ursprung u.a. von M. sartorius und M. tensor fasciae latae.</li>
+    <li><strong>Spina iliaca anterior inferior (SIAI)</strong> &mdash; unterer vorderer Darmbeinstachel; Ursprung des M. rectus femoris.</li>
+    <li><strong>Spina iliaca posterior superior (SIPS)</strong> und <strong>posterior inferior (SIPI)</strong> &mdash; dorsale Darmbeinstacheln.</li>
+    <li><strong>Crista iliaca</strong> &mdash; Darmbeinkamm.</li>
+    <li><strong>Tuber ischiadicum</strong> &mdash; Sitzbeinhöcker; Ursprung der ischiocruralen Muskulatur.</li>
+    <li><strong>Spina ischiadica</strong> &mdash; Sitzbeinstachel.</li>
+    <li><strong>Foramen obturatum</strong> &mdash; großes Loch zwischen Os ischii und Os pubis.</li>
+    <li><strong>Tuberculum pubicum</strong> und <strong>Symphysis pubica</strong> &mdash; Schamfuge in der Mittellinie.</li>
+    <li><strong>Linea glutea anterior, posterior, inferior</strong> &mdash; Linien an der Außenfläche des Os ilium, die die Ursprungsfelder der Glutäen markieren.</li>
+  </ul>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Os coxae von lateral mit beschrifteten Strukturen: SIAS, SIAI, SIPS, SIPI, Crista iliaca, Tuber ischiadicum, Foramen obturatum</div>
+  
+  <div class="atm-bild-such">os coxae beschriftet, hip bone labeled, ilium ischium pubis</div>
+</div>
+
+  <div class="atm-video">
+  <div class="atm-video-titel">Knöcherne Orientierungspunkte am Becken &mdash; Live am Präparat oder Modell</div>
+  <div class="atm-video-such">os coxae anatomie deutsch, becken knochen, pelvic bone landmarks</div>
+  <div class="atm-video-anleit">iFrame oder Moodle-Multimedia-Filter: YouTube-URL einfügen, Moodle bettet das Video automatisch ein.</div>
+</div>
+
+  <h2>2.3 Femur proximal</h2>
+  <p>Der proximale Femur trägt die Strukturen, die in das Hüftgelenk eingehen:</p>
+  <ul>
+    <li><strong>Caput femoris</strong> &mdash; Femurkopf; konvex, mit überknorpelter Gelenkfläche;
+        in der Mitte die <em>Fovea capitis</em> als Ansatz des Lig. capitis femoris.</li>
+    <li><strong>Collum femoris</strong> &mdash; Schenkelhals; klinisch wichtig wegen Schenkelhalsfrakturen im Alter.</li>
+    <li><strong>Trochanter major</strong> &mdash; großer Rollhügel; Ansatzpunkt der Glutäen,
+        des M. piriformis und der pelvitrochantären Muskeln.</li>
+    <li><strong>Trochanter minor</strong> &mdash; kleiner Rollhügel; Ansatz des M. iliopsoas.</li>
+    <li><strong>Linea intertrochanterica</strong> (ventral) und <strong>Crista intertrochanterica</strong>
+        (dorsal) &mdash; verbinden die beiden Trochantere.</li>
+    <li><strong>Fossa trochanterica</strong> &mdash; Grube auf der Innenseite des Trochanter major.</li>
+    <li><strong>Tuberositas glutea</strong> &mdash; Ansatz des M. gluteus maximus an der dorsalen Femurfläche.</li>
+  </ul>
+
+  <div class="atm-bild">
+  <div class="atm-bild-titel">Proximaler Femur von ventral und dorsal mit beschrifteten Strukturen</div>
+  
+  <div class="atm-bild-such">femur proximal anatomie beschriftet, proximal femur labeled, trochanter major minor</div>
+</div>
+
+  <div class="atm-klinik"><h4>Klinischer Bezug &mdash; Schenkelhalsfraktur</h4><p>Der Collum femoris ist eine klinische Schwachstelle &mdash; vor allem bei älteren Menschen mit Osteoporose. Eine Fraktur an dieser Stelle (mediale Schenkelhalsfraktur) gefährdet zusätzlich die Durchblutung des Femurkopfes, weil dort die Aa. circumflexae femoris medialis et lateralis verlaufen, die den Kopf hauptsächlich versorgen. Therapeutisch ist nach Schenkelhalsfraktur die frühzeitige Mobilisation und Sturzprophylaxe ein zentrales Reha-Ziel.</p></div>
+
+  <div class="atm-merke">Trochanter major = Außenseite, gut tastbar bei seitlicher Lagerung. Trochanter minor = Innenseite, nicht tastbar; dort setzt der M. iliopsoas an.</div>
+
+  <div class="atm-quiz"><h3>zu den knöchernen Strukturen</h3><div class="atm-frage"><p>Welche drei Knochen verschmelzen zum Os coxae?</p><div class="atm-mc">
+<input type="radio" name="q004" id="q004o0">
+<label for="q004o0">Os ilium, Os ischii, Os pubis</label>
+<div class="atm-feedback atm-richtig" id="q004o0-fb">Richtig! Diese drei Knochen treffen sich im Bereich des Acetabulums.</div>
+<input type="radio" name="q004" id="q004o1">
+<label for="q004o1">Os ilium, Os sacrum, Os pubis</label>
+<div class="atm-feedback atm-falsch" id="q004o1-fb">Falsch. Os sacrum (Kreuzbein) gehört zur Wirbelsäule, nicht zum Hüftbein.</div>
+<input type="radio" name="q004" id="q004o2">
+<label for="q004o2">Os femoris, Os ischii, Os pubis</label>
+<div class="atm-feedback atm-falsch" id="q004o2-fb">Falsch. Os femoris ist der Oberschenkelknochen, kein Bestandteil des Hüftbeins.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Wo setzt der M. iliopsoas an?</p><div class="atm-mc">
+<input type="radio" name="q005" id="q005o0">
+<label for="q005o0">Trochanter major</label>
+<div class="atm-feedback atm-falsch" id="q005o0-fb">Falsch. Am Trochanter major setzen u.a. Glutäen und Piriformis an.</div>
+<input type="radio" name="q005" id="q005o1">
+<label for="q005o1">Trochanter minor</label>
+<div class="atm-feedback atm-richtig" id="q005o1-fb">Richtig! Der M. iliopsoas setzt am Trochanter minor an &mdash; das ist eine sehr wichtige Information für die Funktion als Hüftbeuger.</div>
+<input type="radio" name="q005" id="q005o2">
+<label for="q005o2">Tuber ischiadicum</label>
+<div class="atm-feedback atm-falsch" id="q005o2-fb">Falsch. Am Tuber ischiadicum entspringen die ischiocruralen Muskeln.</div>
+</div>
+
+</div>
+<div class="atm-frage"><p>Welche Struktur am Femur enthält den Ansatz des Lig. capitis femoris?</p><div class="atm-mc">
+<input type="radio" name="q006" id="q006o0">
+<label for="q006o0">Fossa trochanterica</label>
+<div class="atm-feedback atm-falsch" id="q006o0-fb">Falsch &mdash; in der Fossa trochanterica setzen pelvitrochantäre Muskeln an.</div>
+<input type="radio" name="q006" id="q006o1">
+<label for="q006o1">Fovea capitis</label>
+<div class="atm-feedback atm-richtig" id="q006o1-fb">Richtig! Die kleine zentrale Vertiefung im Caput femoris ist die Fovea capitis.</div>
+<input type="radio" name="q006" id="q006o2">
+<label for="q006o2">Linea intertrochanterica</label>
+<div class="atm-feedback atm-falsch" id="q006o2-fb">Falsch &mdash; an der Linea intertrochanterica setzen Hüftbänder an.</div>
+</div>
+
+</div>
+<div class="atm-frage">
+      <p><strong>Frage zum Mitdenken:</strong> Warum ist die SIAS klinisch besonders wichtig?</p>
+      <details class="atm-lösung"><summary></summary><p>Die Spina iliaca anterior superior (SIAS) ist ein leicht tastbarer Knochenpunkt am Becken. Sie dient als <strong>Referenzpunkt für die Beinlängenmessung</strong> (SIAS &rarr; Malleolus medialis), als Ursprungspunkt für M. sartorius und M. tensor fasciae latae, und als Orientierung in der Palpation und bei der Lagerung von Patienten.</p></details>
+    </div></div>
+
+  <div class="atm-reflexion">Taste an dir selbst die Crista iliaca, die SIAS und den Trochanter major. Spüre die anatomischen Beziehungen. Wo verläuft der Trochanter major im Verhältnis zur SIAS &mdash; auf gleicher Höhe oder darunter?</div>
+
+
+  <div class="atm-nav">
+    <p class="atm-nav-hinweis">Tipp: Nutze die <strong>Vor</strong>- und <strong>Zurück</strong>-Pfeile des Moodle-Buches, um zwischen den Kapiteln zu wechseln. Nächstes Kapitel: <strong>Hüftgelenk &mdash; Gelenk, Bewegung, Bandapparat</strong></p>
+  </div>
+
+</div>
+<div class="scorm-nav">
+  <a class="nav-btn" href="01_grundlagen.html">← Anatomische Grundlagen</a>
+  <span class="nav-progress">Kapitel 3 von 12</span>
+  <a class="nav-btn" href="03_huefte_gelenk.html">→ Hüftgelenk — Gelenk, Bewegung, Bandapparat</a>
+</div>
+</body>
+</html>
