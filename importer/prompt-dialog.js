@@ -7,6 +7,8 @@
  * Abhängigkeiten: keine
  */
 
+import { t } from "../i18n.js";
+
 const PROMPT_TEMPLATE = `Du bist ein Kurs-Autor. Erstelle aus dem Skript am Ende diesen strukturierten Online-Kurs als HTML-Dateien.
 
 ━━ AUSGABE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -144,25 +146,22 @@ function openPromptDialog() {
   overlay.className = "prompt-overlay";
 
   overlay.innerHTML = `
-    <div class="prompt-dialog" role="dialog" aria-modal="true" aria-label="KI-Prompt">
+    <div class="prompt-dialog" role="dialog" aria-modal="true" aria-label="${t('prompt.aria_label')}">
       <div class="prompt-dialog-header">
         <div class="prompt-dialog-title">
           <span class="prompt-dialog-icon">✦</span>
-          KI-Prompt: Kurs erstellen lassen
+          ${t('prompt.title')}
         </div>
-        <button class="btn btn-icon prompt-close" title="Schließen" aria-label="Schließen">✕</button>
+        <button class="btn btn-icon prompt-close" title="${t('prompt.close_title')}" aria-label="${t('prompt.close_title')}">✕</button>
       </div>
 
-      <p class="prompt-dialog-desc">
-        Kopiere den Prompt, füge dein Skript am Ende ein und schick alles an ChatGPT oder Claude.
-        Die KI gibt HTML-Dateien zurück → als ZIP speichern → hier importieren.
-      </p>
+      <p class="prompt-dialog-desc">${t('prompt.description')}</p>
 
       <textarea class="prompt-textarea" spellcheck="false">${escapeForTextarea(PROMPT_TEMPLATE)}</textarea>
 
       <div class="prompt-dialog-footer">
         <span class="prompt-copy-hint" id="prompt-copy-hint"></span>
-        <button class="btn btn-primary prompt-copy-btn" id="prompt-copy-btn">Prompt kopieren</button>
+        <button class="btn btn-primary prompt-copy-btn" id="prompt-copy-btn">${t('prompt.copy_btn')}</button>
       </div>
     </div>
   `;
@@ -206,11 +205,11 @@ function showCopySuccess() {
   const btn  = document.getElementById("prompt-copy-btn");
   const hint = document.getElementById("prompt-copy-hint");
   if (!btn) return;
-  btn.textContent = "Kopiert ✓";
+  btn.textContent = t('prompt.copied');
   btn.style.background = "#22c55e";
-  if (hint) hint.textContent = "Jetzt in ChatGPT oder Claude einfügen.";
+  if (hint) hint.textContent = t('prompt.copy_hint');
   setTimeout(() => {
-    btn.textContent = "Prompt kopieren";
+    btn.textContent = t('prompt.copy_btn');
     btn.style.background = "";
     if (hint) hint.textContent = "";
   }, 3000);

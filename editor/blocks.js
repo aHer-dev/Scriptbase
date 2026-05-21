@@ -8,6 +8,7 @@
 
 import { BLOCK_TYPES } from "../core/block-types.js";
 import { uid, normalizeContent } from "../core/utils.js";
+import { t } from "../i18n.js";
 
 export function renderBlock(block, chapterId, callbacks = {}) {
   const shell = document.createElement("div");
@@ -18,14 +19,14 @@ export function renderBlock(block, chapterId, callbacks = {}) {
 
   const handle = document.createElement("div");
   handle.className = "block-drag-handle";
-  handle.title     = "Ziehen zum Verschieben";
+  handle.title     = t('blocks.drag_title');
   handle.textContent = "⠿";
   handle.addEventListener("mousedown", () => { shell.draggable = true; });
   handle.addEventListener("mouseup",   () => { shell.draggable = false; });
 
   const delBtn = document.createElement("button");
   delBtn.className   = "block-delete-btn";
-  delBtn.title       = "Block löschen";
+  delBtn.title       = t('blocks.delete_title');
   delBtn.textContent = "×";
   delBtn.addEventListener("click", e => { e.stopPropagation(); callbacks.onDelete?.(); });
 
@@ -51,15 +52,15 @@ function renderBlockInner(block, onUpdate) {
     case BLOCK_TYPES.TABLE:      return renderTable(block, onUpdate);
     case BLOCK_TYPES.LIST:       return renderList(block, onUpdate);
     case BLOCK_TYPES.DIVIDER:    return renderDivider();
-    case BLOCK_TYPES.LERNZIELE:    return renderLernbox(block, "lernziele",    "🎯 Lernziele",           onUpdate);
-    case BLOCK_TYPES.MERKE:        return renderLernbox(block, "merke",        "📌 Merke",               onUpdate);
-    case BLOCK_TYPES.ESELSBRUECKE: return renderLernbox(block, "eselsbruecke", "⚡ Eselsbrücke",          onUpdate);
+    case BLOCK_TYPES.LERNZIELE:    return renderLernbox(block, "lernziele",    t('blocks.lernbox.lernziele'),    onUpdate);
+    case BLOCK_TYPES.MERKE:        return renderLernbox(block, "merke",        t('blocks.lernbox.merke'),        onUpdate);
+    case BLOCK_TYPES.ESELSBRUECKE: return renderLernbox(block, "eselsbruecke", t('blocks.lernbox.eselsbruecke'), onUpdate);
     case BLOCK_TYPES.KLINIK:       return renderKlinik(block, onUpdate);
     case BLOCK_TYPES.INFO:         return renderInfo(block, onUpdate);
-    case BLOCK_TYPES.TIPP:         return renderLernbox(block, "tipp",         "💡 Tipp",                onUpdate);
+    case BLOCK_TYPES.TIPP:         return renderLernbox(block, "tipp",         t('blocks.lernbox.tipp'),         onUpdate);
     case BLOCK_TYPES.AUFGABE:      return renderAufgabe(block, onUpdate);
     case BLOCK_TYPES.MUSKEL:       return renderMuskel(block, onUpdate);
-    case BLOCK_TYPES.REFLEXION:    return renderLernbox(block, "reflexion",    "💭 Zur Reflexion",       onUpdate);
+    case BLOCK_TYPES.REFLEXION:    return renderLernbox(block, "reflexion",    t('blocks.lernbox.reflexion'),    onUpdate);
     case BLOCK_TYPES.QUIZ:       return renderQuizBase(block, false, onUpdate);
     case BLOCK_TYPES.QUIZ_MULTI: return renderQuizBase(block, true,  onUpdate);
     case BLOCK_TYPES.TRUE_FALSE: return renderTrueFalse(block, onUpdate);
@@ -68,7 +69,7 @@ function renderBlockInner(block, onUpdate) {
     case BLOCK_TYPES.HOTSPOT:    return renderHotspot(block, onUpdate);
     default: {
       const el = document.createElement("div");
-      el.textContent = `[Unbekannter Block: ${block.type}]`;
+      el.textContent = t('blocks.unknown', { type: block.type });
       return el;
     }
   }
@@ -81,7 +82,7 @@ function renderText(block, onUpdate) {
   el.innerHTML       = normalizeContent(block.content || "");
   el.contentEditable = "true";
   el.spellcheck      = true;
-  withPlaceholder(el, "Text eingeben…");
+  withPlaceholder(el, t('blocks.ph.text'));
   onBlurSave(el, () => onUpdate?.({ content: el.innerHTML }));
   return el;
 }
@@ -91,7 +92,7 @@ function renderHeading(block, onUpdate) {
   const el = document.createElement(`h${level}`);
   el.innerHTML       = normalizeContent(block.content || "");
   el.contentEditable = "true";
-  withPlaceholder(el, "Überschrift eingeben…");
+  withPlaceholder(el, t('blocks.ph.heading'));
   onBlurSave(el, () => onUpdate?.({ content: el.innerHTML }));
   return el;
 }
@@ -155,7 +156,7 @@ function renderImage(block, onUpdate) {
     const cap = document.createElement("figcaption");
     cap.innerHTML       = block.caption || "";
     cap.contentEditable = "true";
-    withPlaceholder(cap, "Bildunterschrift…");
+    withPlaceholder(cap, t('blocks.ph.caption'));
     onBlurSave(cap, () => onUpdate?.({ caption: cap.innerHTML }));
     el.appendChild(cap);
   } else {
@@ -225,18 +226,18 @@ function renderTable(block, onUpdate) {
     return btn;
   }
 
-  controls.appendChild(tableBtn("+ Zeile", false, () => {
+  controls.appendChild(tableBtn(t('blocks.table.add_row'), false, () => {
     const rows = getRows();
     onUpdate?.({ rows: [...rows, Array(rows[0]?.length || 2).fill("")] });
   }));
-  controls.appendChild(tableBtn("+ Spalte", false, () => {
+  controls.appendChild(tableBtn(t('blocks.table.add_col'), false, () => {
     onUpdate?.({ rows: getRows().map(r => [...r, ""]) });
   }));
-  controls.appendChild(tableBtn("− Zeile", true, () => {
+  controls.appendChild(tableBtn(t('blocks.table.del_row'), true, () => {
     const rows = getRows();
     if (rows.length > 1) onUpdate?.({ rows: rows.slice(0, -1) });
   }));
-  controls.appendChild(tableBtn("− Spalte", true, () => {
+  controls.appendChild(tableBtn(t('blocks.table.del_col'), true, () => {
     const rows = getRows();
     if (rows[0]?.length > 1) onUpdate?.({ rows: rows.map(r => r.slice(0, -1)) });
   }));
@@ -272,7 +273,7 @@ function renderLernbox(block, cssClass, label, onUpdate) {
   const body = document.createElement("div");
   body.innerHTML       = normalizeContent(block.content || "");
   body.contentEditable = "true";
-  withPlaceholder(body, "Inhalt eingeben…");
+  withPlaceholder(body, t('blocks.ph.content'));
   onBlurSave(body, () => onUpdate?.({ content: body.innerHTML }));
   el.appendChild(lbl);
   el.appendChild(body);
@@ -283,21 +284,21 @@ function renderAufgabe(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-aufgabe";
   const lbl = document.createElement("strong");
-  lbl.textContent = "✏ Aufgabe";
+  lbl.textContent = t('blocks.lernbox.aufgabe');
   const body = document.createElement("div");
   body.innerHTML       = normalizeContent(block.content || "");
   body.contentEditable = "true";
-  withPlaceholder(body, "Aufgabenstellung…");
+  withPlaceholder(body, t('blocks.ph.task'));
   onBlurSave(body, () => onUpdate?.({ content: body.innerHTML }));
 
   const solLbl = document.createElement("div");
   solLbl.className   = "aufgabe-sol-label";
-  solLbl.textContent = "Lösung (optional):";
+  solLbl.textContent = t('blocks.solution_label');
   const sol = document.createElement("div");
   sol.innerHTML       = normalizeContent(block.solution || "");
   sol.contentEditable = "true";
   sol.className       = "aufgabe-sol-body";
-  withPlaceholder(sol, "Musterlösung eingeben… (wird als aufklappbarer Bereich exportiert)");
+  withPlaceholder(sol, t('blocks.ph.solution'));
   onBlurSave(sol, () => onUpdate?.({ solution: sol.innerHTML }));
 
   el.appendChild(lbl);
@@ -311,16 +312,16 @@ function renderKlinik(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-klinik";
   const lbl = document.createElement("strong");
-  lbl.textContent = "🏥 Klinischer Bezug";
+  lbl.textContent = t('blocks.lernbox.klinik');
   const titleInp = document.createElement("input");
   titleInp.className   = "lernbox-title-input";
-  titleInp.placeholder = "Titel (z.B. Trendelenburg-Zeichen) — optional";
+  titleInp.placeholder = t('blocks.ph.clinical_title');
   titleInp.value       = block.title || "";
   titleInp.addEventListener("blur", () => onUpdate?.({ title: titleInp.value }));
   const body = document.createElement("div");
   body.innerHTML       = normalizeContent(block.content || "");
   body.contentEditable = "true";
-  withPlaceholder(body, "Klinischen Kontext beschreiben…");
+  withPlaceholder(body, t('blocks.ph.clinical_content'));
   onBlurSave(body, () => onUpdate?.({ content: body.innerHTML }));
   el.appendChild(lbl);
   el.appendChild(titleInp);
@@ -332,16 +333,16 @@ function renderInfo(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-info";
   const lbl = document.createElement("strong");
-  lbl.textContent = "ℹ Info";
+  lbl.textContent = t('blocks.lernbox.info');
   const titleInp = document.createElement("input");
   titleInp.className   = "lernbox-title-input";
-  titleInp.placeholder = "Titel (z.B. Warum dieses Kapitel?) — optional";
+  titleInp.placeholder = t('blocks.ph.info_title');
   titleInp.value       = block.title || "";
   titleInp.addEventListener("blur", () => onUpdate?.({ title: titleInp.value }));
   const body = document.createElement("div");
   body.innerHTML       = normalizeContent(block.content || "");
   body.contentEditable = "true";
-  withPlaceholder(body, "Hinweis eingeben…");
+  withPlaceholder(body, t('blocks.ph.info_content'));
   onBlurSave(body, () => onUpdate?.({ content: body.innerHTML }));
   el.appendChild(lbl);
   el.appendChild(titleInp);
@@ -357,24 +358,24 @@ function renderMuskel(block, onUpdate) {
   nameEl.className       = "muskel-name";
   nameEl.innerHTML       = block.name || "";
   nameEl.contentEditable = "true";
-  withPlaceholder(nameEl, "Muskelname (z.B. M. gluteus maximus)…");
+  withPlaceholder(nameEl, t('blocks.ph.muscle_name'));
   onBlurSave(nameEl, () => onUpdate?.({ name: nameEl.innerHTML }));
   el.appendChild(nameEl);
 
   const dl = document.createElement("dl");
   dl.className = "muskel-grid";
   [
-    ["ursprung",    "Ursprung"],
-    ["ansatz",      "Ansatz"],
-    ["funktion",    "Funktion"],
-    ["innervation", "Innervation"],
+    ["ursprung",    t('blocks.muskel.ursprung')],
+    ["ansatz",      t('blocks.muskel.ansatz')],
+    ["funktion",    t('blocks.muskel.funktion')],
+    ["innervation", t('blocks.muskel.innervation')],
   ].forEach(([key, label]) => {
     const dt = document.createElement("dt");
     dt.textContent = label;
     const dd = document.createElement("dd");
     dd.innerHTML       = block[key] || "";
     dd.contentEditable = "true";
-    withPlaceholder(dd, `${label} eingeben…`);
+    withPlaceholder(dd, t('blocks.ph.muskel_field', { label }));
     onBlurSave(dd, () => onUpdate?.({ [key]: dd.innerHTML }));
     dl.appendChild(dt);
     dl.appendChild(dd);
@@ -388,13 +389,13 @@ function renderMuskel(block, onUpdate) {
 function renderQuizBase(block, multi, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-quiz";
-  el.innerHTML = `<strong>${multi ? "☑ MC – mehrere richtig" : "❓ MC – eine richtig"}</strong>`;
+  el.innerHTML = `<strong>${multi ? t('blocks.quiz.mc_multi') : t('blocks.quiz.mc_single')}</strong>`;
 
   const q = document.createElement("div");
   q.className       = "quiz-question";
   q.innerHTML       = block.question || "";
   q.contentEditable = "true";
-  withPlaceholder(q, "Frage eingeben…");
+  withPlaceholder(q, t('blocks.ph.question'));
   onBlurSave(q, () => onUpdate?.({ question: q.innerHTML }));
   el.appendChild(q);
 
@@ -409,7 +410,7 @@ function renderQuizBase(block, multi, onUpdate) {
     const marker = document.createElement("span");
     marker.className  = `quiz-option-marker${isCorrect ? " quiz-option-marker--correct" : ""}`;
     marker.textContent = multi ? (isCorrect ? "☑" : "☐") : (isCorrect ? "◉" : "○");
-    marker.title = isCorrect ? "Richtige Antwort" : "Falsche Antwort – klicken zum Markieren";
+    marker.title = isCorrect ? t('blocks.quiz.correct_title') : t('blocks.quiz.incorrect_title');
     marker.addEventListener("click", () => {
       if (multi) {
         const cur = [...(block.correct || [])];
@@ -425,7 +426,7 @@ function renderQuizBase(block, multi, onUpdate) {
     text.className       = "quiz-option-text";
     text.innerHTML       = opt || "";
     text.contentEditable = "true";
-    withPlaceholder(text, "Option…");
+    withPlaceholder(text, t('blocks.ph.option'));
     onBlurSave(text, () => {
       const newOpts = [...opts.querySelectorAll(".quiz-option-text")].map(t => t.innerHTML);
       onUpdate?.({ options: newOpts });
@@ -442,19 +443,19 @@ function renderQuizBase(block, multi, onUpdate) {
 function renderTrueFalse(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-quiz";
-  el.innerHTML = `<strong>⊤ Wahr / Falsch</strong>`;
+  el.innerHTML = `<strong>${t('blocks.quiz.true_false')}</strong>`;
 
   const stmt = document.createElement("div");
   stmt.className       = "quiz-question";
   stmt.innerHTML       = block.statement || "";
   stmt.contentEditable = "true";
-  withPlaceholder(stmt, "Aussage eingeben…");
+  withPlaceholder(stmt, t('blocks.ph.statement'));
   onBlurSave(stmt, () => onUpdate?.({ statement: stmt.innerHTML }));
   el.appendChild(stmt);
 
   const btns = document.createElement("div");
   btns.className = "tf-buttons";
-  [["Wahr", true], ["Falsch", false]].forEach(([label, val]) => {
+  [[t('blocks.quiz.true'), true], [t('blocks.quiz.false'), false]].forEach(([label, val]) => {
     const btn = document.createElement("button");
     btn.className   = `tf-btn${block.correct === val ? " tf-btn--active" : ""}`;
     btn.textContent = label;
@@ -468,18 +469,18 @@ function renderTrueFalse(block, onUpdate) {
 function renderLuecke(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-quiz";
-  el.innerHTML = `<strong>___ Lückentext</strong>`;
+  el.innerHTML = `<strong>${t('blocks.quiz.gap_title')}</strong>`;
 
   const hint = document.createElement("div");
   hint.className   = "luecke-hint";
-  hint.textContent = "Verwende ___ als Platzhalter für die Lücke(n).";
+  hint.textContent = t('blocks.quiz.gap_hint');
   el.appendChild(hint);
 
   const textEl = document.createElement("div");
   textEl.className       = "quiz-question";
   textEl.innerHTML       = block.text || "";
   textEl.contentEditable = "true";
-  withPlaceholder(textEl, "Satz mit ___ als Lücke eingeben…");
+  withPlaceholder(textEl, t('blocks.ph.gap_text'));
   onBlurSave(textEl, () => {
     const t = textEl.innerHTML;
     const blanks = (t.match(/___/g) || []).map((_, i) => block.blanks?.[i] || "");
@@ -493,7 +494,7 @@ function renderLuecke(block, onUpdate) {
     const row = document.createElement("div");
     row.className = "luecke-answer-row";
     const lbl = document.createElement("span");
-    lbl.textContent = `Lücke ${i + 1}:`;
+    lbl.textContent = t('blocks.quiz.gap_label', { n: i + 1 });
     const inp = document.createElement("span");
     inp.contentEditable = "true";
     inp.className       = "luecke-answer-input";
@@ -514,7 +515,7 @@ function renderLuecke(block, onUpdate) {
 function renderZuordnung(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-quiz";
-  el.innerHTML = `<strong>⇔ Zuordnung</strong>`;
+  el.innerHTML = `<strong>${t('blocks.quiz.matching')}</strong>`;
 
   const grid = document.createElement("div");
   grid.className = "zuordnung-grid";
@@ -526,7 +527,7 @@ function renderZuordnung(block, onUpdate) {
     left.contentEditable = "true";
     left.className       = "zuordnung-cell";
     left.innerHTML       = pair.left || "";
-    withPlaceholder(left, "Links…");
+    withPlaceholder(left, t('blocks.ph.left'));
 
     const arrow = document.createElement("span");
     arrow.className   = "zuordnung-arrow";
@@ -536,7 +537,7 @@ function renderZuordnung(block, onUpdate) {
     right.contentEditable = "true";
     right.className       = "zuordnung-cell";
     right.innerHTML       = pair.right || "";
-    withPlaceholder(right, "Rechts…");
+    withPlaceholder(right, t('blocks.ph.right'));
 
     const savePairs = () => {
       const newPairs = [...grid.querySelectorAll(".zuordnung-row")].map(r => {
@@ -560,13 +561,13 @@ function renderZuordnung(block, onUpdate) {
 function renderHotspot(block, onUpdate) {
   const el = document.createElement("div");
   el.className = "atm-quiz";
-  el.appendChild(Object.assign(document.createElement("strong"), { textContent: "🎯 Bildklick" }));
+  el.appendChild(Object.assign(document.createElement("strong"), { textContent: t('blocks.quiz.hotspot') }));
 
   const q = document.createElement("div");
   q.className       = "quiz-question";
   q.innerHTML       = block.question || "";
   q.contentEditable = "true";
-  withPlaceholder(q, "Frage: Klicke auf die richtige Stelle…");
+  withPlaceholder(q, t('blocks.ph.hotspot_q'));
   onBlurSave(q, () => onUpdate?.({ question: q.innerHTML }));
   el.appendChild(q);
 
@@ -694,7 +695,7 @@ function renderHotspot(block, onUpdate) {
         del.dataset.id = hs.id;
         del.className   = "hotspot-del";
         del.textContent = "×";
-        del.title       = "Entfernen";
+        del.title       = t('blocks.hotspot.remove_title');
         del.style.cssText = `left:${hs.x}%;top:${hs.y}%`;
         del.addEventListener("click", e => {
           e.stopPropagation();
@@ -724,18 +725,18 @@ function renderHotspot(block, onUpdate) {
 
     const input = document.createElement("input");
     input.type        = "text";
-    input.placeholder = "Bezeichnung (optional)";
+    input.placeholder = t('blocks.ph.hotspot_label');
     input.className   = "hotspot-popup-input";
 
     const confirmBtn = document.createElement("button");
     confirmBtn.className   = "hotspot-popup-btn hotspot-popup-btn--confirm";
     confirmBtn.textContent = "✓";
-    confirmBtn.title       = "Bestätigen";
+    confirmBtn.title       = t('blocks.hotspot.confirm_title');
 
     const cancelBtn = document.createElement("button");
     cancelBtn.className   = "hotspot-popup-btn hotspot-popup-btn--cancel";
     cancelBtn.textContent = "×";
-    cancelBtn.title       = "Abbrechen";
+    cancelBtn.title       = t('blocks.hotspot.cancel_title');
 
     popup.appendChild(input);
     popup.appendChild(confirmBtn);
@@ -768,17 +769,17 @@ function renderHotspot(block, onUpdate) {
 
   const editBtn = document.createElement("button");
   editBtn.className   = "btn btn-small";
-  editBtn.textContent = "Hotspots bearbeiten";
+  editBtn.textContent = t('blocks.hotspot.edit_btn');
   editBtn.addEventListener("click", () => {
     editMode = !editMode;
-    editBtn.textContent = editMode ? "Fertig" : "Hotspots bearbeiten";
+    editBtn.textContent = editMode ? t('blocks.hotspot.done_btn') : t('blocks.hotspot.edit_btn');
     wrap.classList.toggle("hotspot-wrap--edit", editMode);
     renderDots();
   });
 
   const hint = document.createElement("span");
   hint.className = "hotspot-hint";
-  hint.textContent = "Grüner Punkt = korrekte Antwort";
+  hint.textContent = t('blocks.hotspot.hint');
 
   toolbar.appendChild(editBtn);
   toolbar.appendChild(hint);
@@ -811,7 +812,7 @@ function buildImageForm(onConfirm) {
 
   const hint = document.createElement("div");
   hint.className   = "image-form-hint";
-  hint.textContent = "Bild hierhin ziehen oder:";
+  hint.textContent = t('blocks.ph.image_hint');
   wrap.appendChild(hint);
 
   const fileInput = document.createElement("input");
@@ -822,7 +823,7 @@ function buildImageForm(onConfirm) {
 
   const fileBtn = document.createElement("button");
   fileBtn.className   = "btn url-form-btn";
-  fileBtn.textContent = "📁 Datei wählen";
+  fileBtn.textContent = t('blocks.image.file_btn');
   fileBtn.addEventListener("click", () => fileInput.click());
   wrap.appendChild(fileBtn);
 
@@ -836,7 +837,7 @@ function buildImageForm(onConfirm) {
 
   const sep = document.createElement("span");
   sep.className   = "url-form-sep";
-  sep.textContent = "oder URL:";
+  sep.textContent = t('blocks.image.url_sep');
   wrap.appendChild(sep);
 
   const inp = document.createElement("input");

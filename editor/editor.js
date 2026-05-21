@@ -12,6 +12,7 @@ import { createBlock, ALL_BLOCK_TYPES } from "../core/block-types.js";
 import { renderBlock } from "./blocks.js";
 import { escapeHTML } from "../core/utils.js";
 import { getPaperStyle } from "../design/paper-style.js";
+import { t } from "../i18n.js";
 
 let container = null;
 
@@ -29,7 +30,7 @@ function render(course) {
 
   const chapter = State.getActiveChapter();
   if (!chapter) {
-    renderEmpty("Wähle links ein Kapitel oder lege ein neues an.");
+    renderEmpty(t('editor.select_chapter'));
     return;
   }
 
@@ -57,7 +58,7 @@ function render(course) {
     canvas.appendChild(makeInsertLine(chapter.id, 0));
     const empty = document.createElement("div");
     empty.className = "editor-empty";
-    empty.innerHTML = `Dieses Kapitel ist leer.<br>Klicke <strong>+</strong> um einen Block einzufügen.`;
+    empty.innerHTML = t('editor.empty_chapter');
     canvas.appendChild(empty);
   } else {
     chapter.blocks.forEach((block, i) => {
@@ -81,7 +82,11 @@ function render(course) {
 
 // ── Insert Line ──────────────────────────────────────────────────────
 
-const GROUP_LABELS = { inhalt: "Inhalt", lernbox: "Lern-Boxen", interaktion: "Interaktion" };
+const GROUP_LABELS = () => ({
+  inhalt:      t('editor.group.inhalt'),
+  lernbox:     t('editor.group.lernbox'),
+  interaktion: t('editor.group.interaktion'),
+});
 
 function makeInsertLine(chapterId, insertIndex) {
   const line = document.createElement("div");
@@ -92,7 +97,7 @@ function makeInsertLine(chapterId, insertIndex) {
 
   const btn = document.createElement("button");
   btn.className = "insert-line-btn";
-  btn.title = "Block hier einfügen";
+  btn.title = t('editor.insert_block_title');
   btn.textContent = "+";
 
   line.appendChild(track);
@@ -112,7 +117,7 @@ function makeInsertLine(chapterId, insertIndex) {
     palette = document.createElement("div");
     palette.className = "insert-palette";
 
-    Object.entries(GROUP_LABELS).forEach(([groupKey, groupLabel]) => {
+    Object.entries(GROUP_LABELS()).forEach(([groupKey, groupLabel]) => {
       const items = ALL_BLOCK_TYPES.filter(t => t.group === groupKey);
       const groupEl = document.createElement("div");
       groupEl.className = "insert-palette-group";
@@ -125,7 +130,8 @@ function makeInsertLine(chapterId, insertIndex) {
       items.forEach(({ type, label, icon }) => {
         const b = document.createElement("button");
         b.className = "insert-palette-btn";
-        b.innerHTML = `<i data-lucide="${icon}" class="lucide-icon"></i><span>${label}</span>`;
+        const blockLabel = t(`block.${type}`) || label;
+        b.innerHTML = `<i data-lucide="${icon}" class="lucide-icon"></i><span>${blockLabel}</span>`;
         b.addEventListener("click", ev => {
           ev.stopPropagation();
           addBlockAtIndex(chapterId, type, insertIndex);
@@ -231,7 +237,7 @@ function setupDragAndDrop(canvas, chapterId) {
   });
 }
 
-function renderEmpty(message = "Kein Kurs geladen.") {
+function renderEmpty(message = t('editor.no_course')) {
   container.innerHTML = `<div class="editor-empty">${escapeHTML(message)}</div>`;
 }
 

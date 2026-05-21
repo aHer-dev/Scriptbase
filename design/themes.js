@@ -16,6 +16,7 @@ import { ALL_BLOCK_TYPES } from "../core/block-types.js";
 import { applyPreview } from "./renderer.js";
 import { DESIGN } from "../config.js";
 import { addBlockToActiveChapter } from "../editor/editor.js";
+import { t } from "../i18n.js";
 
 // ── Hilfsfunktion: Editor-Variablen für dunkle Themes ─────────────
 function darkEditor({ accent, accentGlow, accentSoft, bg, bgGrad, text, textMuted, blob1, blob2, blob3 }) {
@@ -448,14 +449,14 @@ export function getAllThemes() {
  */
 export function initDesignPanel(el) {
   const groups = [
-    { key: "inhalt",      label: "Inhalt" },
-    { key: "lernbox",     label: "Lern-Boxen" },
-    { key: "interaktion", label: "Interaktion" },
+    { key: "inhalt",      label: () => t('editor.group.inhalt') },
+    { key: "lernbox",     label: () => t('editor.group.lernbox') },
+    { key: "interaktion", label: () => t('editor.group.interaktion') },
   ];
 
   el.innerHTML = groups.map(g => `
     <div class="panel-section">
-      <h3>${g.label}</h3>
+      <h3>${g.label()}</h3>
       <div class="block-palette" data-group="${g.key}"></div>
     </div>
   `).join("");
@@ -463,10 +464,11 @@ export function initDesignPanel(el) {
   groups.forEach(g => {
     const palette = el.querySelector(`[data-group="${g.key}"]`);
     ALL_BLOCK_TYPES.filter(b => b.group === g.key).forEach(b => {
+      const label = t(`block.${b.type}`) || b.label;
       const btn = document.createElement("button");
       btn.className = "btn btn-small";
-      btn.title     = b.label;
-      btn.innerHTML = `<i data-lucide="${b.icon}" class="lucide-icon"></i>${b.label}`;
+      btn.title     = label;
+      btn.innerHTML = `<i data-lucide="${b.icon}" class="lucide-icon"></i>${label}`;
       btn.addEventListener("click", () => addBlockToActiveChapter(b.type));
       palette.appendChild(btn);
     });

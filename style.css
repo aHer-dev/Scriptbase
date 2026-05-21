@@ -787,6 +787,37 @@ html, body {
   color: var(--ed-accent);
 }
 
+/* ── Language Toggle ────────────────────────────────────────── */
+.language-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.lang-btn {
+  flex: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--ed-border);
+  background: var(--ed-glass);
+  color: var(--ed-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lang-btn:hover {
+  background: var(--ed-glass-hover);
+  color: var(--ed-text);
+}
+
+.lang-btn--active {
+  background: var(--ed-accent-dim);
+  border-color: var(--ed-accent-border);
+  color: var(--ed-accent);
+}
+
 /* ── Theme cards ────────────────────────────────────────────── */
 .theme-grid {
   display: grid;

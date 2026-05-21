@@ -17,6 +17,7 @@ import { QUIZ_RUNTIME_JS } from "./quiz-runtime.js";
 import { blockToHTML } from "./block-to-html.js";
 import { generateCSS } from "../design/renderer.js";
 import { escapeHTML, slugify } from "../core/utils.js";
+import { t } from "../i18n.js";
 
 export function initExportButton(button) {
   button.addEventListener("click", runExport);
@@ -32,8 +33,8 @@ async function runExport() {
   }
 
   const course = State.getCourse();
-  if (!course) { alert("Kein Kurs zum Exportieren."); return; }
-  if (!course.chapters?.length) { alert("Der Kurs hat noch keine Kapitel."); return; }
+  if (!course) { alert(t('exporter.no_course')); return; }
+  if (!course.chapters?.length) { alert(t('exporter.no_chapters')); return; }
 
   // Prüfe auf leere Interaktionsblöcke und warne
   const warnings = [];
@@ -49,9 +50,7 @@ async function runExport() {
   });
   if (warnings.length) {
     const proceed = confirm(
-      "⚠️ Einige Blöcke scheinen unvollständig:\n\n" +
-      warnings.join("\n") +
-      "\n\nTrotzdem exportieren?"
+      t('exporter.incomplete_blocks') + warnings.join("\n") + t('exporter.proceed_anyway')
     );
     if (!proceed) return;
   }
@@ -99,10 +98,10 @@ export function chapterToHTML(course, chapter, opts = {}) {
   const blocksHTML = (chapter.blocks || []).map(blockToHTML).join("\n");
 
   const prevBtn  = prevHref
-    ? `<a class="cf-nav-btn" href="${prevHref}">← Zurück</a>`
+    ? `<a class="cf-nav-btn" href="${prevHref}">${t('exporter.nav_back')}</a>`
     : `<span></span>`;
   const nextBtn  = nextHref
-    ? `<a class="cf-nav-btn" href="${nextHref}">Weiter →</a>`
+    ? `<a class="cf-nav-btn" href="${nextHref}">${t('exporter.nav_next')}</a>`
     : `<span></span>`;
   const progress = pageTotal > 1
     ? `<span class="cf-nav-progress">${pageNum} / ${pageTotal}</span>`

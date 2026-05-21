@@ -25,6 +25,7 @@ import { importZipFile } from "./importer/importer.js";
 import { initFormatToolbar } from "./editor/format-toolbar.js";
 import { getPaperStyle, setPaperStyle } from "./design/paper-style.js";
 import { initReaderButton } from "./editor/reader.js";
+import { t, getLanguage, setLanguage } from "./i18n.js";
 
 // ── Top-Bar ────────────────────────────────────────────────────────
 function initTopbar() {
@@ -39,14 +40,14 @@ function initTopbar() {
       </svg>
       <span class="logo-wordmark">ScriptBase</span>
     </div>
-    <input type="text" class="topbar-title" id="course-title" placeholder="Kurstitel..." />
+    <input type="text" class="topbar-title" id="course-title" placeholder="${t('app.title_placeholder')}" />
     <div class="topbar-actions">
-      <button class="btn btn-icon btn-mode" id="btn-mode" title="Light Mode aktivieren">☀️</button>
-      <button class="btn-theme-dot" id="btn-theme-dot" title="Design & Einstellungen"></button>
-      <button class="btn" id="btn-prompt" title="KI-Prompt zum Kurs-Erstellen">✦ KI-Prompt</button>
-      <button class="btn" id="btn-import" title="SCORM-ZIP oder .sbcourse Projekt laden">↑ Importieren</button>
-      <button class="btn" id="btn-web-export">Web exportieren</button>
-      <button class="btn btn-primary" id="btn-export">SCORM exportieren</button>
+      <button class="btn btn-icon btn-mode" id="btn-mode" title="${t('app.mode_light')}">☀️</button>
+      <button class="btn-theme-dot" id="btn-theme-dot" title="${t('app.settings_header')}"></button>
+      <button class="btn" id="btn-prompt" title="${t('app.btn_prompt_title')}">${t('app.btn_prompt_text')}</button>
+      <button class="btn" id="btn-import" title="${t('app.btn_import_title')}">${t('app.btn_import_text')}</button>
+      <button class="btn" id="btn-web-export">${t('app.btn_web_export')}</button>
+      <button class="btn btn-primary" id="btn-export">${t('app.btn_scorm_export')}</button>
     </div>
   `;
 
@@ -67,7 +68,7 @@ function initTopbar() {
   const btnMode = document.getElementById("btn-mode");
   State.subscribeMode(mode => {
     btnMode.textContent = mode === "dark" ? "☀️" : "🌙";
-    btnMode.title       = mode === "dark" ? "Light Mode aktivieren" : "Dark Mode aktivieren";
+    btnMode.title       = mode === "dark" ? t('app.mode_light') : t('app.mode_dark');
   });
   btnMode.addEventListener("click", () => {
     State.setMode(State.getMode() === "dark" ? "light" : "dark");
@@ -108,29 +109,30 @@ function initOptionsPanel() {
   panel.id = "options-panel";
   panel.className = "options-panel";
   panel.hidden = true;
+  const lang = getLanguage();
   panel.innerHTML = `
-    <div class="options-header">Einstellungen</div>
+    <div class="options-header">${t('app.settings_header')}</div>
     <div class="options-section">
-      <div class="options-section-title">Theme</div>
+      <div class="options-section-title">${t('app.settings_theme')}</div>
       <div class="theme-grid" id="options-theme-grid"></div>
     </div>
     <div class="options-section">
-      <div class="options-section-title">Seiten-Stil</div>
+      <div class="options-section-title">${t('app.settings_paper_style')}</div>
       <div class="paper-style-toggle" id="paper-style-toggle">
         <button class="paper-style-btn" data-style="card">
-          <i data-lucide="layers" class="lucide-icon"></i>Karte
+          <i data-lucide="layers" class="lucide-icon"></i>${t('app.settings_card')}
         </button>
         <button class="paper-style-btn" data-style="flat">
-          <i data-lucide="layout-template" class="lucide-icon"></i>Flat
+          <i data-lucide="layout-template" class="lucide-icon"></i>${t('app.settings_flat')}
         </button>
       </div>
     </div>
     <div class="options-section">
-      <div class="options-section-title">Layout</div>
+      <div class="options-section-title">${t('app.settings_layout')}</div>
       <div class="layout-slider-row">
         <div>
           <div class="layout-slider-label">
-            Canvas-Breite
+            ${t('app.settings_canvas_width')}
             <span id="opt-width-val">${savedWidth}px</span>
           </div>
           <input type="range" class="layout-range" id="opt-width"
@@ -138,12 +140,20 @@ function initOptionsPanel() {
         </div>
         <div>
           <div class="layout-slider-label">
-            Schriftgröße
+            ${t('app.settings_font_size')}
             <span id="opt-font-val">${savedFontSize}px</span>
           </div>
           <input type="range" class="layout-range" id="opt-font"
                  min="12" max="18" step="1" value="${savedFontSize}">
         </div>
+      </div>
+    </div>
+    <div class="options-section">
+      <div class="options-section-title">${t('app.settings_language')}</div>
+      <div class="language-toggle">
+        <button class="lang-btn${lang === 'de' ? ' lang-btn--active' : ''}" data-lang="de">DE</button>
+        <button class="lang-btn${lang === 'en' ? ' lang-btn--active' : ''}" data-lang="en">EN</button>
+        <button class="lang-btn${lang === 'et' ? ' lang-btn--active' : ''}" data-lang="et">ET</button>
       </div>
     </div>
   `;
@@ -183,6 +193,11 @@ function initOptionsPanel() {
   syncPaperBtns();
   window.lucide?.createIcons();
 
+  // Sprach-Toggle verdrahten
+  panel.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+  });
+
   // Slider verdrahten
   panel.querySelector("#opt-width").addEventListener("input", e => {
     const v = parseInt(e.target.value);
@@ -205,19 +220,19 @@ function initStatusbar() {
 
   const statusbar = document.getElementById("statusbar");
   statusbar.innerHTML = `
-    <span id="status-text">Bereit</span>
-    <button class="btn-project-save" id="btn-project-save" title="Projekt als .sbcourse speichern">↓ Projekt</button>
+    <span id="status-text">${t('app.status_ready')}</span>
+    <button class="btn-project-save" id="btn-project-save" title="${t('app.btn_save_title')}">${t('app.btn_save_text')}</button>
   `;
   document.getElementById("btn-project-save").addEventListener("click", saveProject);
 
   const statusText = document.getElementById("status-text");
   State.subscribe(course => {
     if (!course) {
-      statusText.textContent = "Kein Kurs geladen";
+      statusText.textContent = t('app.status_no_course');
       return;
     }
     const n = course.chapters?.length ?? 0;
-    statusText.textContent = `${n} Kapitel · zuletzt gespeichert: ${formatTime(course.updatedAt)}`;
+    statusText.textContent = t('app.status_chapters', { n, time: formatTime(course.updatedAt) });
   });
 
   // Farbpunkt: Panel auf-/zuklappen
@@ -254,11 +269,11 @@ function initUndoRedo() {
     if (ctrl && e.key === "z" && !e.shiftKey) {
       e.preventDefault();
       const ok = State.undo();
-      if (ok) showUndoToast("Rückgängig");
+      if (ok) showUndoToast(t('app.undo'));
     } else if (ctrl && (e.key === "y" || (e.key === "z" && e.shiftKey))) {
       e.preventDefault();
       const ok = State.redo();
-      if (ok) showUndoToast("Wiederherstellen");
+      if (ok) showUndoToast(t('app.redo'));
     }
   });
 }
@@ -286,7 +301,7 @@ function initDragDrop() {
   overlay.innerHTML = `
     <div class="drop-overlay__box">
       <div class="drop-overlay__icon">↓</div>
-      <div class="drop-overlay__text" id="drop-overlay-text">Datei loslassen zum Laden</div>
+      <div class="drop-overlay__text" id="drop-overlay-text">${t('app.drop_hint')}</div>
     </div>`;
   document.body.appendChild(overlay);
 

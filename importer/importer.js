@@ -19,6 +19,7 @@ import { createCourse, addChapter } from "../core/course.js";
 import { createChapter } from "../core/chapter.js";
 import { createBlock, BLOCK_TYPES } from "../core/block-types.js";
 import { loadProjectFromFile } from "../core/project-io.js";
+import { t } from "../i18n.js";
 
 const JSZIP_CDN = "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js";
 let jszipPromise = null;
@@ -62,9 +63,7 @@ function openImportDialog() {
  */
 async function importZip(file) {
   if (State.getCourse()) {
-    const ok = confirm(
-      `Aktuellen Kurs ersetzen mit "${file.name}"?\n\nNicht gespeicherte Änderungen gehen verloren.`
-    );
+    const ok = confirm(t('importer.replace_confirm', { filename: file.name }));
     if (!ok) return;
   }
 
@@ -72,7 +71,7 @@ async function importZip(file) {
   try {
     JSZip = await loadJSZip();
   } catch {
-    alert("JSZip konnte nicht geladen werden. Bitte Internetverbindung prüfen.");
+    alert(t('importer.jszip_error'));
     return;
   }
 
@@ -80,7 +79,7 @@ async function importZip(file) {
   try {
     zip = await JSZip.loadAsync(file);
   } catch {
-    alert(`"${file.name}" konnte nicht als ZIP geöffnet werden.`);
+    alert(t('importer.zip_error', { filename: file.name }));
     return;
   }
 
@@ -107,7 +106,7 @@ async function importZip(file) {
   }
 
   if (chapters.length === 0) {
-    alert(`Keine HTML-Inhalte in "${file.name}" gefunden.`);
+    alert(t('importer.no_html', { filename: file.name }));
     return;
   }
 
@@ -129,7 +128,7 @@ async function importZip(file) {
   }
 
   if (course.chapters.length === 0) {
-    alert("Keine Kapitel konnten importiert werden.");
+    alert(t('importer.no_chapters'));
     return;
   }
 

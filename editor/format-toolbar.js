@@ -5,18 +5,20 @@
  * Tastaturkürzel (Strg+B / I / U) funktionieren auch ohne Toolbar.
  */
 
+import { t } from "../i18n.js";
+
 export function initFormatToolbar() {
   const toolbar = document.createElement("div");
   toolbar.id        = "format-toolbar";
   toolbar.className = "format-toolbar";
   toolbar.hidden    = true;
   toolbar.innerHTML = `
-    <button class="fmt-btn" data-cmd="bold"                title="Fett (Strg+B)"><b>B</b></button>
-    <button class="fmt-btn" data-cmd="italic"              title="Kursiv (Strg+I)"><i>I</i></button>
-    <button class="fmt-btn" data-cmd="underline"           title="Unterstrichen (Strg+U)"><u>U</u></button>
+    <button class="fmt-btn" data-cmd="bold"                title="${t('toolbar.bold')}"><b>B</b></button>
+    <button class="fmt-btn" data-cmd="italic"              title="${t('toolbar.italic')}"><i>I</i></button>
+    <button class="fmt-btn" data-cmd="underline"           title="${t('toolbar.underline')}"><u>U</u></button>
     <span class="fmt-sep"></span>
-    <button class="fmt-btn" data-cmd="insertUnorderedList" title="Aufzählung (•)">≡</button>
-    <button class="fmt-btn" data-cmd="insertOrderedList"   title="Nummerierung (1.)">1.</button>
+    <button class="fmt-btn" data-cmd="insertUnorderedList" title="${t('toolbar.list_ul')}">≡</button>
+    <button class="fmt-btn" data-cmd="insertOrderedList"   title="${t('toolbar.list_ol')}">1.</button>
   `;
   document.body.appendChild(toolbar);
 

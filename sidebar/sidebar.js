@@ -18,6 +18,7 @@ import {
   reorderChapters,
 } from "../core/course.js";
 import { escapeHTML } from "../core/utils.js";
+import { t } from "../i18n.js";
 
 let container = null;
 
@@ -29,8 +30,8 @@ export function initSidebar(el) {
   container = el;
   container.innerHTML = `
     <div class="sidebar-header">
-      <h2>Kapitel</h2>
-      <button class="btn btn-small" id="btn-add-chapter" title="Neues Kapitel">+</button>
+      <h2>${t('sidebar.title')}</h2>
+      <button class="btn btn-small" id="btn-add-chapter" title="${t('sidebar.add_chapter_title')}">+</button>
     </div>
     <ul class="chapter-list" id="chapter-list"></ul>
   `;
@@ -48,11 +49,7 @@ function render(course) {
   if (!list) return;
 
   if (!course || !course.chapters || course.chapters.length === 0) {
-    list.innerHTML = `
-      <li class="chapter-empty">
-        Noch keine Kapitel.<br>
-        Klick auf <strong>+</strong> oder importiere ein ZIP.
-      </li>`;
+    list.innerHTML = `<li class="chapter-empty">${t('sidebar.empty')}</li>`;
     return;
   }
 
@@ -64,8 +61,8 @@ function render(course) {
       <span class="chapter-number">${String(i + 1).padStart(2, "0")}</span>
       <span class="chapter-title">${escapeHTML(ch.title)}</span>
       <span class="chapter-actions">
-        <button class="btn-icon" data-action="rename" title="Umbenennen">✎</button>
-        <button class="btn-icon" data-action="delete" title="Löschen">×</button>
+        <button class="btn-icon" data-action="rename" title="${t('sidebar.rename_title')}">✎</button>
+        <button class="btn-icon" data-action="delete" title="${t('sidebar.delete_title')}">×</button>
       </span>
     </li>
   `).join("");
@@ -99,7 +96,7 @@ function attachItemHandlers() {
 // ── Aktionen ───────────────────────────────────────────────────────
 
 function onAddChapter() {
-  const chapter = createChapter("Neues Kapitel");
+  const chapter = createChapter(t('sidebar.new_chapter_name'));
   State.update(course => addChapter(course, chapter));
   State.setActiveChapter(chapter.id);
 }
@@ -109,14 +106,14 @@ function onRenameChapter(chapterId) {
   const chapter = course?.chapters.find(c => c.id === chapterId);
   if (!chapter) return;
 
-  const newTitle = prompt("Neuer Kapitel-Titel:", chapter.title);
+  const newTitle = prompt(t('sidebar.rename_prompt'), chapter.title);
   if (newTitle === null || newTitle.trim() === "") return;
 
   State.update(c => { renameChapter(c, chapterId, newTitle.trim()); });
 }
 
 function onDeleteChapter(chapterId) {
-  if (!confirm("Kapitel wirklich löschen? Das kann nicht rückgängig gemacht werden.")) return;
+  if (!confirm(t('sidebar.delete_confirm'))) return;
 
   const course = State.getCourse();
   const idx = course.chapters.findIndex(c => c.id === chapterId);
