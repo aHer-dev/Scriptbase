@@ -9,75 +9,80 @@
 
 import { t } from "../i18n.js";
 
-const PROMPT_TEMPLATE = `Du bist ein Kurs-Autor. Erstelle aus dem Skript am Ende diesen strukturierten Online-Kurs als HTML-Dateien.
+const PROMPT_TEMPLATE = `You are a course author. From the script at the end, create a structured online course as HTML files.
 
-━━ AUSGABE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-• Eine HTML-Datei pro Kapitel
-• Dateinamen: 01_einleitung.html, 02_grundlagen.html usw.
-• Alle Dateien gesammelt ausgeben (oder als ZIP)
+━━ OUTPUT ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• One HTML file per chapter
+• File names: 01_introduction.html, 02_basics.html etc.
+• Output all files together (or as a ZIP)
 
-━━ HTML-STRUKTUR ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Jede Datei hat genau diesen Aufbau:
+━━ LANGUAGE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠ IMPORTANT: Write ALL course content — headings, paragraphs, quiz questions,
+answer options, labels, and hints — in the SAME LANGUAGE as the script I provide.
+Do NOT translate. Match the language of the input exactly.
+
+━━ HTML STRUCTURE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Each file has exactly this structure:
 
 <div class="atm">
 
-  <h1>Kapiteltitel</h1>
+  <h1>Chapter title</h1>
 
-  <h2>Abschnitt</h2>
-  <h3>Unterabschnitt</h3>
+  <h2>Section</h2>
+  <h3>Subsection</h3>
 
-  <p>Fließtext mit <strong>fett</strong> und <em>kursiv</em>.</p>
+  <p>Body text with <strong>bold</strong> and <em>italic</em>.</p>
 
   <ul>
-    <li>Aufzählungspunkt</li>
+    <li>Bullet point</li>
   </ul>
 
   <ol>
-    <li>Nummerierter Schritt</li>
+    <li>Numbered step</li>
   </ol>
 
   <table>
-    <tr><th>Spalte 1</th><th>Spalte 2</th></tr>
-    <tr><td>Wert</td><td>Wert</td></tr>
+    <tr><th>Column 1</th><th>Column 2</th></tr>
+    <tr><td>Value</td><td>Value</td></tr>
   </table>
 
   <hr>
 
-  <!-- Lern-Boxen – genau diese Klassen verwenden: -->
+  <!-- Learning boxes – use exactly these classes: -->
 
-  <div class="atm-merke">Merksatz oder Eselsbrücke</div>
+  <div class="atm-merke">Key fact or mnemonic</div>
 
   <div class="atm-klinik">
-    <h4>Klinischer Bezug – Titel</h4>
-    <p>Beschreibung</p>
+    <h4>Clinical relevance – Title</h4>
+    <p>Description</p>
   </div>
 
-  <div class="atm-tipp">Praktischer Hinweis</div>
+  <div class="atm-tipp">Practical tip</div>
 
-  <div class="atm-aufgabe">Aufgabe oder Übung für die Lernenden</div>
+  <div class="atm-aufgabe">Task or exercise for learners</div>
 
 </div>
 
-━━ INTERAKTIVE BLÖCKE (Quizfragen) ━━━━━━━━━━━━━━━━━━━
-Verwende diese Formate für Lernkontrollen. Baue pro Kapitel
-2–4 Fragen ein, verteilt über den Inhalt.
+━━ INTERACTIVE BLOCKS (Quiz questions) ━━━━━━━━━━━━━━
+Use these formats for knowledge checks. Include 2–4 questions per chapter,
+distributed throughout the content.
 
-<!-- MC – eine richtige Antwort                          -->
-<!-- data-correct = Index der richtigen Antwort (0-basiert) -->
+<!-- MC – single correct answer                          -->
+<!-- data-correct = index of correct answer (0-based)   -->
 <div class="atm-quiz" data-correct="1">
-  <p>Welches Gelenk ist ein Kugelgelenk?</p>
+  <p>Which joint is a ball-and-socket joint?</p>
   <ul>
-    <li>Kniegelenk</li>
-    <li>Hüftgelenk</li>
-    <li>Ellenbogengelenk</li>
-    <li>Sprunggelenk</li>
+    <li>Knee joint</li>
+    <li>Hip joint</li>
+    <li>Elbow joint</li>
+    <li>Ankle joint</li>
   </ul>
 </div>
 
-<!-- MC – mehrere richtige Antworten                     -->
-<!-- data-correct = kommagetrennte Indizes, z. B. "0,2" -->
+<!-- MC – multiple correct answers                       -->
+<!-- data-correct = comma-separated indices, e.g. "0,2" -->
 <div class="atm-quiz-multi" data-correct="0,2">
-  <p>Welche Knochen bilden das Os coxae?</p>
+  <p>Which bones form the os coxae?</p>
   <ul>
     <li>Os ilium</li>
     <li>Os femoris</li>
@@ -86,44 +91,44 @@ Verwende diese Formate für Lernkontrollen. Baue pro Kapitel
   </ul>
 </div>
 
-<!-- Wahr / Falsch                                       -->
-<!-- data-correct = "wahr" oder "falsch"                 -->
+<!-- True / False                                        -->
+<!-- data-correct = "wahr" (true) or "falsch" (false)   -->
 <div class="atm-wahr-falsch" data-correct="wahr">
-  <p>Das Hüftgelenk ist das größte Gelenk des menschlichen Körpers.</p>
+  <p>The hip joint is the largest joint in the human body.</p>
 </div>
 
-<!-- Lückentext                                          -->
-<!-- Lücken im Text mit ___ markieren                   -->
-<!-- Lösungen in gleicher Reihenfolge als Liste         -->
+<!-- Gap fill                                            -->
+<!-- Mark gaps in the text with ___                     -->
+<!-- Answers as a list in the same order                -->
 <div class="atm-luecke">
-  <p>Der Oberschenkelknochen heißt ___ und bildet zusammen mit der ___ das Hüftgelenk.</p>
+  <p>The thigh bone is called ___ and forms the hip joint together with the ___.</p>
   <ul>
     <li>Femur</li>
-    <li>Hüftpfanne (Acetabulum)</li>
+    <li>Acetabulum</li>
   </ul>
 </div>
 
-<!-- Zuordnung (Matching)                                -->
-<!-- data-links = linke Spalte, data-rechts = rechte Spalte -->
+<!-- Matching                                            -->
+<!-- data-links = left column, data-rechts = right col  -->
 <div class="atm-zuordnung">
   <ul>
-    <li data-links="Os ilium"  data-rechts="Darmbein"></li>
-    <li data-links="Os ischii" data-rechts="Sitzbein"></li>
-    <li data-links="Os pubis"  data-rechts="Schambein"></li>
+    <li data-links="Os ilium"  data-rechts="Ilium"></li>
+    <li data-links="Os ischii" data-rechts="Ischium"></li>
+    <li data-links="Os pubis"  data-rechts="Pubis"></li>
   </ul>
 </div>
 
-━━ VERBOTEN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✗ Kein <style>-Block
-✗ Kein <script> / JavaScript
-✗ Keine inline-Styles  (style="...")
-✗ Kein <html>, <head> oder <body>-Wrapper
-✗ Keine <img>-Tags (Bilder werden später manuell eingefügt)
+━━ FORBIDDEN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✗ No <style> block
+✗ No <script> / JavaScript
+✗ No inline styles (style="...")
+✗ No <html>, <head> or <body> wrapper
+✗ No <img> tags (images will be added manually later)
 
-━━ HINWEIS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Lade deine Inhalte (Skript, Folien, Texte) direkt in den
-Chat deiner KI (ChatGPT, Claude usw.) und schick diesen
-Prompt dazu. Das Styling übernimmt ScriptBase beim Import.
+━━ NOTE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Upload your content (script, slides, text) directly into
+your AI chat (ChatGPT, Claude etc.) and send this prompt
+along with it. ScriptBase handles all styling on import.
 `;
 
 // ── Public API ──────────────────────────────────────────────────────
