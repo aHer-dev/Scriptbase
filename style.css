@@ -818,6 +818,110 @@ html, body {
   color: var(--ed-accent);
 }
 
+/* ── Clear / Confirm Dialog ─────────────────────────────────── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeUp 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.confirm-overlay--closing {
+  animation: fadeOut 0.15s ease-in both;
+}
+
+.confirm-dialog {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  background: var(--ed-panel);
+  border: 1px solid var(--ed-glass-border);
+  border-radius: 18px;
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px var(--ed-glass-border);
+  padding: 32px 28px 24px;
+}
+
+.confirm-dialog-icon {
+  font-size: 32px;
+  line-height: 1;
+  color: #f59e0b;
+  margin-bottom: 4px;
+}
+
+.confirm-dialog-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ed-text);
+  margin: 0;
+}
+
+.confirm-dialog-text {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ed-text-muted);
+  margin: 0;
+}
+
+.confirm-dialog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.confirm-dialog-actions .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+.confirm-cancel {
+  background: var(--ed-glass);
+  border-color: var(--ed-glass-border);
+  color: var(--ed-text-muted);
+}
+
+.confirm-cancel:hover {
+  background: var(--ed-glass-hover);
+  color: var(--ed-text);
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #ef4444;
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.28);
+  border-color: rgba(239, 68, 68, 0.55);
+  color: #f87171;
+}
+
+.btn-clear {
+  color: var(--ed-text-muted);
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.btn-clear:hover {
+  opacity: 1;
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
 /* ── Theme cards ────────────────────────────────────────────── */
 .theme-grid {
   display: grid;

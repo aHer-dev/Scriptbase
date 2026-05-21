@@ -178,4 +178,10 @@ export default {
   'app.undo':                 'Võta tagasi',
   'app.redo':                 'Tee uuesti',
   'app.drop_hint':            'Lohista fail laadimiseks',
+  'app.btn_clear_title':      'Kustuta kursus ja alusta uuesti',
+  'app.btn_clear_text':       '✕ Tühjenda',
+  'app.clear_title':          'Kustuta kursus?',
+  'app.clear_text':           'Kas soovite praeguse kursuse tõesti kustutada?\nKõik salvestamata muudatused lähevad kaduma.',
+  'app.clear_confirm':        'Jah, kustuta',
+  'app.clear_cancel':         'Tühista',
 };

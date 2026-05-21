@@ -27,6 +27,44 @@ import { getPaperStyle, setPaperStyle } from "./design/paper-style.js";
 import { initReaderButton } from "./editor/reader.js";
 import { t, getLanguage, setLanguage } from "./i18n.js";
 
+// ── Clear / Reset Dialog ───────────────────────────────────────────
+function showClearDialog() {
+  const overlay = document.createElement("div");
+  overlay.className = "confirm-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", t('app.clear_title'));
+
+  overlay.innerHTML = `
+    <div class="confirm-dialog">
+      <div class="confirm-dialog-icon">⚠</div>
+      <h2 class="confirm-dialog-title">${t('app.clear_title')}</h2>
+      <p class="confirm-dialog-text">${t('app.clear_text').replace(/\n/g, '<br>')}</p>
+      <div class="confirm-dialog-actions">
+        <button class="btn confirm-cancel">${t('app.clear_cancel')}</button>
+        <button class="btn btn-danger confirm-ok">${t('app.clear_confirm')}</button>
+      </div>
+    </div>`;
+
+  document.body.appendChild(overlay);
+
+  function close() {
+    overlay.classList.add("confirm-overlay--closing");
+    overlay.addEventListener("animationend", () => overlay.remove(), { once: true });
+  }
+
+  overlay.querySelector(".confirm-cancel").addEventListener("click", close);
+  overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
+  document.addEventListener("keydown", function onKey(e) {
+    if (e.key === "Escape") { close(); document.removeEventListener("keydown", onKey); }
+  });
+
+  overlay.querySelector(".confirm-ok").addEventListener("click", () => {
+    State.setCourse(createCourse(""));
+    close();
+  });
+}
+
 // ── Top-Bar ────────────────────────────────────────────────────────
 function initTopbar() {
   const topbar = document.getElementById("topbar");
@@ -44,6 +82,7 @@ function initTopbar() {
     <div class="topbar-actions">
       <button class="btn btn-icon btn-mode" id="btn-mode" title="${t('app.mode_light')}">☀️</button>
       <button class="btn-theme-dot" id="btn-theme-dot" title="${t('app.settings_header')}"></button>
+      <button class="btn btn-clear" id="btn-clear" title="${t('app.btn_clear_title')}">${t('app.btn_clear_text')}</button>
       <button class="btn" id="btn-prompt" title="${t('app.btn_prompt_title')}">${t('app.btn_prompt_text')}</button>
       <button class="btn" id="btn-import" title="${t('app.btn_import_title')}">${t('app.btn_import_text')}</button>
       <button class="btn" id="btn-web-export">${t('app.btn_web_export')}</button>
@@ -75,6 +114,7 @@ function initTopbar() {
   });
 
   // Buttons verdrahten
+  document.getElementById("btn-clear").addEventListener("click", showClearDialog);
   initPromptButton(document.getElementById("btn-prompt"));
   initImportButton(document.getElementById("btn-import"));
   initReaderButton(topbar);

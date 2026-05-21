@@ -177,4 +177,10 @@ export default {
   'app.undo':                 'Undo',
   'app.redo':                 'Redo',
   'app.drop_hint':            'Drop file to load',
+  'app.btn_clear_title':      'Delete course and start fresh',
+  'app.btn_clear_text':       '✕ Clear',
+  'app.clear_title':          'Clear course?',
+  'app.clear_text':           'Do you really want to delete the current course?\nAll unsaved changes will be lost.',
+  'app.clear_confirm':        'Yes, delete',
+  'app.clear_cancel':         'Cancel',
 };
