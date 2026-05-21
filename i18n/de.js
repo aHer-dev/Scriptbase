@@ -178,7 +178,7 @@ export default {
   'app.redo':                 'Wiederherstellen',
   'app.drop_hint':            'Datei loslassen zum Laden',
   'app.btn_clear_title':      'Kurs löschen und neu starten',
-  'app.btn_clear_text':       '✕ Leeren',
+  'app.btn_clear_text':       '❌',
   'app.clear_title':          'Kurs löschen?',
   'app.clear_text':           'Möchten Sie den aktuellen Kurs wirklich löschen?\nAlle nicht gespeicherten Änderungen gehen verloren.',
   'app.clear_confirm':        'Ja, löschen',
